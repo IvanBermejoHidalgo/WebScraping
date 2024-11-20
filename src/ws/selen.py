@@ -39,6 +39,7 @@ def scrape_with_selenium(url):
             writer.writerow(["nombre", "apellido"])  # Cabecera
             for nombre, apellido in zip(nombres, apellidos):
                 writer.writerow([nombre.text.strip(), apellido.text.strip()])
+            
 
         print("Datos guardados en 'drivers.csv'")
     except Exception as e:
