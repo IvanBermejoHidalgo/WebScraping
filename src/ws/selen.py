@@ -6,9 +6,10 @@ import csv
 
 #URL of CNN's homepage
 cnn_url = "https://www.formula1.com/en/drivers"
+teams_url = "https://www.formula1.com/en/teams"
 
 #Function to scrape headlines using Selenium
-def scrape_with_selenium(url):
+def drivers(url):
     options = Options()
     options.headless = False  # Set to True for headless mode
     driver = webdriver.Chrome(options=options)
@@ -16,29 +17,25 @@ def scrape_with_selenium(url):
     #Navigate to the webpage
     driver.get(url)
 
-    #Interact with the webpage using Selenium
-    # Example: Click on a button that loads more articles
-
-    #species_list = driver.find_element(By.CLASS_NAME, 'speciesList')
-    #species_list = driver.find_element(By.CLASS_NAME, 'f1-container')
-
-    #all_species = species_list.find_elements(By.CLASS_NAME, 'speciesNewRow')
-    #all_species = species_list.find_elements(By.CLASS_NAME, 'group')
-
-    #for specie in all_species:
-    #    print(specie.find_element(By.CLASS_NAME, 'speciesTitle').text)
-    #    print(specie.find_element(By.CLASS_NAME, 'speciesTitle').get_attribute('href'))
-
     # FUNCIONA CORRECTAMENTE
     try:
+        numPos = driver.find_elements(By.CLASS_NAME, 'f1-heading-black.font-formulaOne.tracking-normal.font-black.non-italic.text-fs-42px.leading-none')
         nombres = driver.find_elements(By.CLASS_NAME, 'f1-heading.tracking-normal.text-fs-12px.leading-tight.uppercase.font-normal.non-italic.f1-heading__body.font-formulaOne')
         apellidos = driver.find_elements(By.CLASS_NAME, 'f1-heading.tracking-normal.text-fs-18px.leading-tight.uppercase.font-bold.non-italic.f1-heading__body.font-formulaOne')
+        scuderias = driver.find_elements(By.CLASS_NAME, 'f1-heading.tracking-normal.text-fs-12px.leading-tight.normal-case.font-normal.non-italic.f1-heading__body.font-formulaOne.text-greyDark')
+        puntos = driver.find_elements(By.CLASS_NAME, 'f1-heading-wide.font-formulaOneWide.tracking-normal.font-normal.non-italic.text-fs-18px.leading-none.normal-case')
+        imgPaises = driver.find_elements(By.CLASS_NAME, 'flex.relative.items-center.border-l-normal.pl-xs.border-current')
+        numPilotos = driver.find_elements(By.CLASS_NAME, 'flex.items-baseline')
 
         with open("drivers.csv", "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter=';')  # Usa ';' como separador
-            writer.writerow(["nombre", "apellido"])  # Cabecera
-            for nombre, apellido in zip(nombres, apellidos):
-                writer.writerow([nombre.text.strip(), apellido.text.strip()])
+            # writer.writerow(["nombre", "apellido"])  # Cabecera
+            for numPo, nombre, apellido, scuderia, punto, imgPais, numPiloto in zip(numPos,nombres, apellidos, scuderias, puntos, imgPaises, numPilotos):
+                imgPaises_src = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('src')
+                imgPaises_alt = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('alt')
+                numPilotos_src = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('src')
+                numPilotos_alt = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('alt')
+                writer.writerow([numPo.text.strip(),nombre.text.strip(), apellido.text.strip(), scuderia.text.strip(), punto.text.strip(), imgPaises_alt.strip(), numPilotos_alt.strip(), imgPaises_src.strip(), numPilotos_src.strip()])
             
 
         print("Datos guardados en 'drivers.csv'")
@@ -48,24 +45,45 @@ def scrape_with_selenium(url):
         # Cerrar el navegador
         driver.quit()
 
-    #cookies_button = driver.find_element(By.ID, 'onetrust-accept-btn-handler')
-    #cookies_button.click();
 
-    ## no_of_jobs = int(wd.find_element(By.CSS_SELECTOR, 'h1>span'))
-    ## load_more_button = driver.find_element_by_css_selector('.load-more-button')
-    ## load_more_button = driver.find_element(By.CSS_SELECTOR, '.load-more-button')
-    ## load_more_button.click()
 
-    #Allow time for dynamic content to load (you may need to use WebDriverWait for more robust waiting)
-    #time.sleep(3)
 
-    #Extract and print headlines after loading more content
-    ## headlines = driver.find_elements_by_css_selector('.card h3')
-    #headlines = driver.find_elements(By.TAG_NAME, 'h2')
-    #for headline in headlines:
-    #    print(headline.text)
+def teams(url):
+    options = Options()
+    options.headless = False
+    driver = webdriver.Chrome(options=options)
+    driver.get(url)
 
-    #Close the browser window
+    try:
+        equipos = driver.find_elements(By.CLASS_NAME, 'f1-driver-listing-card')
+
+        with open("teams.csv", "w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file, delimiter=';')
+            #writer.writerow(["Posición", "Equipo", "Piloto 1", "Piloto 2", "Puntos"])
+
+            for equipo in equipos:
+                posicion = equipo.find_element(By.CLASS_NAME, 'f1-heading-black.font-formulaOne.tracking-normal.font-black.non-italic.text-fs-42px.leading-none').text.strip()
+                nombre_equipo = equipo.find_element(By.CLASS_NAME, 'f1-inner-wrapper.flex.flex-col.gap-micro.text-brand-black').text.strip()
+
+                pilotos = equipo.find_elements(By.CLASS_NAME, 'f1-team-driver-name')
+                if len(pilotos) >= 2:
+                    piloto1 = pilotos[0].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
+                    piloto2 = pilotos[1].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
+                    
+
+                puntos = equipo.find_element(By.CLASS_NAME, 'f1-heading-wide.font-formulaOneWide.tracking-normal.font-normal.non-italic.text-fs-18px.leading-none.normal-case').text.strip()
+                writer.writerow([posicion, nombre_equipo, piloto1, piloto2, puntos])
+
+        print("Datos guardados en 'teams.csv'")
+
+    except Exception as e:
+        print(f"Error: {e}")
+    finally:
+        driver.quit()
+
+
+
 
 #Scrape headlines using Selenium
-scrape_with_selenium(cnn_url)
+#drivers(cnn_url)
+teams(teams_url)
