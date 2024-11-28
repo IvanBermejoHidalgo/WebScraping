@@ -27,18 +27,24 @@ def drivers(url):
         imgPaises = driver.find_elements(By.CLASS_NAME, 'flex.relative.items-center.border-l-normal.pl-xs.border-current')
         numPilotos = driver.find_elements(By.CLASS_NAME, 'flex.items-baseline')
 
-        with open("drivers.csv", "w", newline="", encoding="utf-8") as file:
+        with open("drivers.sql", "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter=';')  # Usa ';' como separador
             # writer.writerow(["nombre", "apellido"])  # Cabecera
             for numPo, nombre, apellido, scuderia, punto, imgPais, numPiloto in zip(numPos,nombres, apellidos, scuderias, puntos, imgPaises, numPilotos):
                 imgPaises_src = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('src')
                 imgPaises_alt = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('alt')
                 numPilotos_src = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('src')
-                numPilotos_alt = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('alt')
-                writer.writerow([numPo.text.strip(),nombre.text.strip(), apellido.text.strip(), scuderia.text.strip(), punto.text.strip(), imgPaises_alt.strip(), numPilotos_alt.strip(), imgPaises_src.strip(), numPilotos_src.strip()])
+                numdriver = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('alt')
+                #writer.writerow([numPo.text.strip(),nombre.text.strip(), apellido.text.strip(), scuderia.text.strip(), punto.text.strip(), imgPaises_alt.strip(), numPilotos_alt.strip(), imgPaises_src.strip(), numPilotos_src.strip()])
+                # Crea la instrucción SQL
+                insert_query = f"""INSERT INTO drivers (driver_number, position, first_name, last_name, team, points, country, flag_url, logo_url) VALUES 
+('{numdriver.strip()}', {numPo.text.strip()}, '{nombre.text.strip()}', '{apellido.text.strip()}', '{scuderia.text.strip()}', {punto.text.strip()}, 
+'{imgPaises_alt.strip()}', '{imgPaises_src.strip()}', '{numPilotos_src.strip()}');"""
+            
+                file.write(insert_query + "\n")
             
 
-        print("Datos guardados en 'drivers.csv'")
+        print("Datos guardados en 'drivers.sql'")
     except Exception as e:
         print(f"Error: {e}")
     finally:
@@ -57,7 +63,7 @@ def teams(url):
     try:
         equipos = driver.find_elements(By.CLASS_NAME, 'f1-driver-listing-card')
 
-        with open("teams.csv", "w", newline="", encoding="utf-8") as file:
+        with open("teams.sql", "w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file, delimiter=';')
             #writer.writerow(["Posición", "Equipo", "Piloto 1", "Piloto 2", "Puntos"])
 
@@ -72,9 +78,16 @@ def teams(url):
                     
 
                 puntos = equipo.find_element(By.CLASS_NAME, 'f1-heading-wide.font-formulaOneWide.tracking-normal.font-normal.non-italic.text-fs-18px.leading-none.normal-case').text.strip()
-                writer.writerow([posicion, nombre_equipo, piloto1, piloto2, puntos])
+                imglogo = equipo.find_element(By.CLASS_NAME, 'f1-c-image').get_attribute('src')
+                imgcoche = equipo.find_element(By.XPATH, './/div[contains(@class, "flex items-baseline justify-center")]/img').get_attribute('src')
+                #writer.writerow([posicion, nombre_equipo, piloto1, piloto2, puntos])
+                insert_query = f"""INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
+                ({posicion}, '{nombre_equipo}', '{piloto1}', '{piloto2}', {puntos}, '{imglogo}', '{imgcoche}');"""
+                
+                # Escribe la consulta en el archivo
+                file.write(insert_query + "\n")
 
-        print("Datos guardados en 'teams.csv'")
+        print("Datos guardados en 'teams.sql'")
 
     except Exception as e:
         print(f"Error: {e}")
