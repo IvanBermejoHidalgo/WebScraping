@@ -1,0 +1,23 @@
+-- TABLE DRIVERS -- 
+CREATE TABLE drivers (
+    driver_number VARCHAR(50) PRIMARY KEY,
+    position INT NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    team VARCHAR(100) NOT NULL,
+    points INT NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    flag_url TEXT NOT NULL,
+    logo_url TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- TABLE TEAMS -- 
+CREATE TABLE teams (
+    team_position INT PRIMARY KEY,
+    team_name VARCHAR(100) NOT NULL,
+    driver1 VARCHAR(100) NOT NULL,
+    driver2 VARCHAR(100) NOT NULL,
+    points INT NOT NULL,
+    img_team TEXT NOT NULL,
+    img_car TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
