@@ -1,12 +1,15 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import csv
 
 #URL of CNN's homepage
 cnn_url = "https://www.formula1.com/en/drivers"
 teams_url = "https://www.formula1.com/en/teams"
+races2024_url = "https://www.formula1.com/en/results/2024/races"
 
 #Function to scrape headlines using Selenium
 def drivers(url):
@@ -97,6 +100,57 @@ def teams(url):
 
 
 
+def races2024(url):
+    options = Options()
+    options.headless = False
+    driver = webdriver.Chrome(options=options)
+
+    try:
+        # Navegar a la URL
+        driver.get(url)
+
+        # Encontrar las filas de la tabla
+        carreras = driver.find_elements(By.CLASS_NAME, 'resultsarchive-table-row')
+
+        if not carreras:
+            print("No se encontraron carreras en la tabla.")
+            return
+
+        with open("races.sql", "w", encoding="utf-8") as file:
+            for carrera in carreras:
+                try:
+                    # Extraer datos de la fila
+                    grand_prix = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-grandprix').text.strip()
+                    date = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-date').text.strip()
+                    winner = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-winner').text.strip()
+                    car = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-car').text.strip()
+                    laps = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-laps').text.strip()
+                    race_time = carrera.find_element(By.CLASS_NAME, 'resultsarchive-table-time').text.strip()
+
+                    # Crear la instrucción SQL
+                    insert_query = (
+                        f"INSERT INTO races (grand_prix, race_date, winner, car, laps, race_time) VALUES "
+                        f"('{grand_prix}', '{date}', '{winner}', '{car}', {laps}, '{race_time}');"
+                    )
+
+                    # Escribir la consulta en el archivo
+                    file.write(insert_query + "\n")
+
+                except Exception as row_error:
+                    print(f"Error al procesar una carrera: {row_error}")
+
+        print("Datos guardados en 'races.sql'")
+
+    except Exception as e:
+        print(f"Error al obtener los datos: {e}")
+
+    finally:
+        driver.quit()
+
+
+
+
 #Scrape headlines using Selenium
-#drivers(cnn_url)
+drivers(cnn_url)
 teams(teams_url)
+#races2024(races2024_url)
