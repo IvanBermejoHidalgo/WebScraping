@@ -1,48 +1,75 @@
 <?php
-
+ob_start();
 require_once "../vendor/autoload.php";
 
-$path = explode('/', trim( $_SERVER['REQUEST_URI']));
+$path = explode('/', trim($_SERVER['REQUEST_URI']));
 $views = '/views/';
 
+// Iniciar sesión si no está iniciada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
- //SessionController::userSignUp("rusben", "rusben@elpuig.xeill.net", "password");
-// die();
+// Verificar si el usuario está autenticado
+function isAuthenticated() {
+    return isset($_SESSION['user_id']);
+}
 
-//SessionController::userLogin("ivan", "password");
-//SessionController::userSignUp("ivan","ibermejo@elpuig.xeill.net","password");
-//print_r($_SESSION);
-//die();
-
+// Redirigir al login si no está autenticado
+function requireAuth() {
+    if (!isAuthenticated()) {
+        header('Location: /');
+        exit();
+    }
+}
 
 switch ($path[1]) {
     case '':
     case '/':
-        require __DIR__ . $views . 'login.php';
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $username = $_POST['username'];
             $password = $_POST['password'];
-        
-            // Intentamos iniciar sesión con los datos ingresados
             $result = SessionController::userLogin($username, $password);
-            print_r($_SESSION);
+            if ($result) {
+                header('Location: /home');
+                exit();
+            } else {
+                $error = "Credenciales inválidas";
+            }
+        }
+        require __DIR__ . $views . 'login.php';
+        break;
+
+    case 'api':
+        if ($path[2] === "session" && $path[3] === "token") {
+            ApiController::generateSessionToken();
         }
         break;
 
     case 'signup':
-        require __DIR__ . $views . 'signup.php';
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-        
-            // Intentamos iniciar sesión con los datos ingresados
             $result = SessionController::userSignUp($username, $email, $password);
+            if ($result) {
+                header('Location: /');
+                exit();
+            } else {
+                $error = "Error en el registro";
+            }
         }
+        require __DIR__ . $views . 'signup.php';
         break;
-    
-    case 'admin':      
+
+    case 'admin':
+        requireAuth(); // Asegurar que el usuario esté autenticado
         require __DIR__ . $views . 'admin.php';
+        break;
+
+    case 'home':
+        requireAuth(); // Asegurar que el usuario esté autenticado
+        require __DIR__ . $views . 'home.php';
         break;
 
     case 'not-found':
