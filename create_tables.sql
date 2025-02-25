@@ -11,6 +11,15 @@ CREATE TABLE drivers (
     logo_url TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE drivers (
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL PRIMARY KEY,
+    team VARCHAR(100) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    flag_url TEXT NOT NULL,
+    piloto_img TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- TABLE TEAMS -- 
 CREATE TABLE teams (
     team_position INT PRIMARY KEY,

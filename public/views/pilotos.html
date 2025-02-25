@@ -10,27 +10,119 @@
             background-color: #f8f9fa;
         }
         .navbar {
-            background-color: #e10600; /* Rojo de Fórmula 1 */
+            background: linear-gradient(90deg, #e10600, #b90504);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
         }
-        .navbar-brand, .nav-link {
+        .navbar-brand {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .navbar-brand img {
+            height: 30px;
+            margin-right: 8px;
+            filter: brightness(0) invert(1);
+        }
+        .nav-link {
             color: white !important;
+            font-weight: 500;
+            margin: 0 8px;
+            position: relative;
+            transition: color 0.3s ease;
         }
-        .navbar-brand:hover, .nav-link:hover {
-            color: #ffc107 !important; /* Amarillo al hacer hover */
+        .nav-link:hover {
+            color: #ffc107 !important;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #ffc107;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
         }
         .card {
             margin-bottom: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card-img-top {
-            height: 200px;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-container {
+            display: flex;
+            height: 150px;
+        }
+        .card-img-container img {
+            width: 50%;
+            height: 100%;
             object-fit: cover;
         }
+        .card-img-container img:first-child {
+            border-right: 2px solid #fff;
+        }
+        h1 {
+            font-family: 'FormulaOne', Arial, sans-serif;
+            font-weight: 900;
+            font-style: normal;
+            color: black;
+            font-size: 32px;
+            line-height: 1.2;
+            letter-spacing: normal;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 62px;
+                line-height: 1;
+            }
+        }
+        .decorative-section {
+            position: relative;
+            min-height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .decorative-section2 {
+            position: relative;
+            min-height: 30px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .decorative-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://example.com/mobileStripPattern.png');
+            opacity: 0.5;
+            background-size: 30%;
+            z-index: -1;
+        }
+        @media (min-width: 768px) {
+            .decorative-section::after {
+                background-image: url('https://example.com/stripesPattern1.png');
+                background-size: 12%;
+            }
+        }
     </style>
+    
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="/home">Fórmula 1</a>
+            <a class="navbar-brand" href="/home">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo"> <!-- Logo de Fórmula 1 -->
+                
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,13 +145,21 @@
         </div>
     </nav>
 
+    <!-- Espacio decorativo -->
+    <div class="decorative-section"></div>
+
     <div class="container mt-4">
-        <h1 class="mb-4">Pilotos</h1>
+        <h1 class="mb-4">F1 Drivers 2025</h1>
+        <div class="decorative-section2"></div>
         <div class="row">
             {% for driver in drivers %}
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="card">
-                        <img src="{{ driver.flag_url }}" class="card-img-top" alt="{{ driver.first_name }} {{ driver.last_name }}">
+                        <!-- Contenedor flexible para las imágenes -->
+                        <div class="card-img-container">
+                            <img src="{{ driver.piloto_img }}" alt="{{ driver.first_name }} {{ driver.last_name }}">
+                            <img src="{{ driver.flag_url }}" alt="{{ driver.country }}">
+                        </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ driver.first_name }} {{ driver.last_name }}</h5>
                             <p class="card-text">

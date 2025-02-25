@@ -28,7 +28,7 @@ def drivers(url):
         scuderias = driver.find_elements(By.CLASS_NAME, 'f1-heading.tracking-normal.text-fs-12px.leading-tight.normal-case.font-normal.non-italic.f1-heading__body.font-formulaOne.text-greyDark')
         #puntos = driver.find_elements(By.CLASS_NAME, 'f1-heading-wide.font-formulaOneWide.tracking-normal.font-normal.non-italic.text-fs-18px.leading-none.normal-case')
         imgPaises = driver.find_elements(By.CLASS_NAME, 'flex.relative.items-center.border-l-normal.pl-xs.border-current')
-        imgPilotos = driver.find_elements(By.CLASS_NAME, 'f1-c-image.ml-0.mr-0.pr-s.max-w-3/4')
+        imgPilotos = driver.find_elements(By.XPATH, '//img[contains(@class, "f1-c-image") and contains(@class, "ml-0") and contains(@class, "mr-0") and contains(@class, "pr-s") and contains(@class, "max-w-3/4")]')
         #numPilotos = driver.find_elements(By.CLASS_NAME, 'flex.items-baseline')
 
         with open("drivers.sql", "w", newline="", encoding="utf-8") as file:
@@ -38,7 +38,7 @@ def drivers(url):
                 imgPaises_src = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('src')
                 imgPaises_alt = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('alt')
 
-                imgPilotos_src = imgPilo.find_element(By.TAG_NAME, 'img').get_attribute('src')
+                imgPilotos_src = imgPilo.get_attribute('src')
                 #numPilotos_src = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('src')
                 #numdriver = numPiloto.find_element(By.TAG_NAME, 'img').get_attribute('alt')
                 #writer.writerow([numPo.text.strip(),nombre.text.strip(), apellido.text.strip(), scuderia.text.strip(), punto.text.strip(), imgPaises_alt.strip(), numPilotos_alt.strip(), imgPaises_src.strip(), numPilotos_src.strip()])
