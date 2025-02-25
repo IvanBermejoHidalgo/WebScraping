@@ -1,79 +1,111 @@
 <?php
-ob_start();
+
 require_once "../vendor/autoload.php";
+require_once "../src/controller/SessionController.php"; // Asegúrate de incluir esto
+
+session_start(); // Inicia la sesión
+$loader = new \Twig\Loader\FilesystemLoader('views');
+$twig = new \Twig\Environment($loader, [
+    'cache' => false, // Desactiva la caché en desarrollo
+]);
 
 $path = explode('/', trim($_SERVER['REQUEST_URI']));
-$views = '/views/';
-
-// Iniciar sesión si no está iniciada
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Verificar si el usuario está autenticado
-function isAuthenticated() {
-    return isset($_SESSION['user_id']);
-}
-
-// Redirigir al login si no está autenticado
-function requireAuth() {
-    if (!isAuthenticated()) {
-        header('Location: /');
-        exit();
-    }
-}
+$views = __DIR__ . '/views/'; // Ruta absoluta a la carpeta de vistas
 
 switch ($path[1]) {
     case '':
     case '/':
+        // Mostrar el formulario de login
+        require $views . 'login.php';
+
+        // Procesar el formulario de login
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $username = $_POST['username'];
             $password = $_POST['password'];
+
+            // Intentar iniciar sesión
             $result = SessionController::userLogin($username, $password);
-            if ($result) {
-                header('Location: /home');
+
+            if ($result === "success") {
+                // Redirigir al home si el login es exitoso
+                header("Location: /home");
                 exit();
             } else {
-                $error = "Credenciales inválidas";
+                // Mostrar un mensaje de error si el login falla
+                echo "<script>alert('$result');</script>";
             }
-        }
-        require __DIR__ . $views . 'login.php';
-        break;
-
-    case 'api':
-        if ($path[2] === "session" && $path[3] === "token") {
-            ApiController::generateSessionToken();
         }
         break;
 
     case 'signup':
+        // Mostrar el formulario de registro
+        require $views . 'signup.php';
+
+        // Procesar el formulario de registro
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $username = $_POST['username'];
             $email = $_POST['email'];
             $password = $_POST['password'];
+
+            // Intentar registrar al usuario
             $result = SessionController::userSignUp($username, $email, $password);
-            if ($result) {
-                header('Location: /');
+
+            if ($result === "Usuario registrado exitosamente") {
+                // Redirigir al login después del registro
+                header("Location: /");
                 exit();
             } else {
-                $error = "Error en el registro";
+                // Mostrar un mensaje de error si el registro falla
+                echo "<script>alert('$result');</script>";
             }
         }
-        require __DIR__ . $views . 'signup.php';
-        break;
-
-    case 'admin':
-        requireAuth(); // Asegurar que el usuario esté autenticado
-        require __DIR__ . $views . 'admin.php';
         break;
 
     case 'home':
-        requireAuth(); // Asegurar que el usuario esté autenticado
-        require __DIR__ . $views . 'home.php';
+        // Verificar si el usuario está logueado
+        if (isset($_SESSION['user_id'])) {
+            require $views . 'home.php';
+        } else {
+            // Redirigir al login si no hay sesión activa
+            header("Location: /");
+            exit();
+        }
+        break;
+
+    case 'scuderias':
+        if (isset($_SESSION['user_id'])) {
+            $teams = DatabaseController::getTeams();
+            echo $twig->render('scuderias.html', ['teams' => $teams]);
+        } else {
+            header("Location: /");
+            exit();
+        }
+        break;
+    
+    case 'pilotos':
+        if (isset($_SESSION['user_id'])) {
+            $driver = DatabaseController::getDrivers();
+            echo $twig->render('pilotos.html', ['drivers' => $driver]);
+        } else {
+            header("Location: /");
+            exit();
+        }
+        break;
+    
+    case 'circuitos':
+        if (isset($_SESSION['user_id'])) {
+            $teams = DatabaseController::getCircuits();
+            echo $twig->render('circuitos.html', ['circuits' => $circuit]);
+        } else {
+            header("Location: /");
+            exit();
+        }
         break;
 
     case 'not-found':
     default:
+        // Mostrar la página 404
         http_response_code(404);
-        require __DIR__ . $views . '404.php';
+        require $views . '404.php';
+        break;
 }

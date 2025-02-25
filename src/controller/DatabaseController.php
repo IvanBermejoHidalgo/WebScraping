@@ -16,14 +16,14 @@ class DatabaseController {
 
     // Hold the class instance.
     private static $instance = null;
-    
+
     // The constructor is private
     // to prevent initiation with outer code.
     private function __construct()
     {
       // The expensive process (e.g.,db connection) goes here.
     }
-   
+
     // The object is created from within the class itself
     // only if the class has no instance.
     public static function getInstance()
@@ -32,7 +32,7 @@ class DatabaseController {
       {
         self::$instance = new DatabaseController();
       }
-   
+
       return self::$instance;
     }
 
@@ -40,10 +40,31 @@ class DatabaseController {
         try  {
             $connection = new PDO('mysql:host='.self::$host.';dbname='.self::$dbname, self::$username, self::$password, self::$options);
             return $connection;
-   
+
           } catch(PDOException $error) {
               echo $sql . "<br>" . $error->getMessage();
               return null;
           }
+    }
+
+    public static function getTeams() {
+      $sql = "SELECT * FROM teams";
+      $statement = self::connect()->prepare($sql);
+      $statement->execute();
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+  
+    public static function getDrivers() {
+        $sql = "SELECT * FROM drivers";
+        $statement = self::connect()->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+  
+    public static function getCircuits() {
+        $sql = "SELECT * FROM circuits";
+        $statement = self::connect()->prepare($sql);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
   }

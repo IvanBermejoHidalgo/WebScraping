@@ -1,20 +1,20 @@
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (1, 'McLaren', 'NORRIS', 'PIASTRI', 666, 'https://media.formula1.com/content/dam/fom-website/teams/2024/mclaren-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mclaren.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (2, 'Ferrari', 'LECLERC', 'SAINZ', 652, 'https://media.formula1.com/content/dam/fom-website/teams/2024/ferrari-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/ferrari.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (3, 'Red Bull Racing', 'VERSTAPPEN', 'PEREZ', 589, 'https://media.formula1.com/content/dam/fom-website/teams/2024/red-bull-racing-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/red-bull-racing.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (4, 'Mercedes', 'HAMILTON', 'RUSSELL', 468, 'https://media.formula1.com/content/dam/fom-website/teams/2024/mercedes-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/mercedes.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (5, 'Aston Martin', 'ALONSO', 'STROLL', 94, 'https://media.formula1.com/content/dam/fom-website/teams/2024/aston-martin-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/aston-martin.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (6, 'Alpine', 'GASLY', 'DOOHAN', 65, 'https://media.formula1.com/content/dam/fom-website/teams/2024/alpine-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/alpine.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (7, 'Haas', 'HULKENBERG', 'MAGNUSSEN', 58, 'https://media.formula1.com/content/dam/fom-website/teams/2024/haas-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/haas.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (8, 'RB', 'TSUNODA', 'LAWSON', 46, 'https://media.formula1.com/content/dam/fom-website/teams/2024/rb-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/rb.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (9, 'Williams', 'ALBON', 'COLAPINTO', 17, 'https://media.formula1.com/content/dam/fom-website/teams/2024/williams-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/williams.png');
-INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
-                (10, 'Kick Sauber', 'BOTTAS', 'Guanyu', 4, 'https://media.formula1.com/content/dam/fom-website/teams/2024/kick-sauber-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2024/kick-sauber.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Alpine', 'GASLY', 'DOOHAN', 'https://media.formula1.com/content/dam/fom-website/teams/2025/alpine-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/alpine.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Aston Martin', 'STROLL', 'ALONSO', 'https://media.formula1.com/content/dam/fom-website/teams/2025/aston-martin-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/aston-martin.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Ferrari', 'LECLERC', 'HAMILTON', 'https://media.formula1.com/content/dam/fom-website/teams/2025/ferrari-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/ferrari.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Haas', 'OCON', 'BEARMAN', 'https://media.formula1.com/content/dam/fom-website/teams/2025/haas-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/haas.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Kick Sauber', 'HULKENBERG', 'BORTOLETO', 'https://media.formula1.com/content/dam/fom-website/teams/2025/kick-sauber-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/kick-sauber.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('McLaren', 'PIASTRI', 'NORRIS', 'https://media.formula1.com/content/dam/fom-website/teams/2025/mclaren-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mclaren.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Mercedes', 'RUSSELL', 'ANTONELLI', 'https://media.formula1.com/content/dam/fom-website/teams/2025/mercedes-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/mercedes.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Racing Bulls', 'HADJAR', 'TSUNODA', 'https://media.formula1.com/content/dam/fom-website/teams/2025/racing-bulls-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/racing-bulls.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Red Bull Racing', 'VERSTAPPEN', 'LAWSON', 'https://media.formula1.com/content/dam/fom-website/teams/2025/red-bull-racing-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/red-bull-racing.png');
+INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                ('Williams', 'ALBON', 'SAINZ', 'https://media.formula1.com/content/dam/fom-website/teams/2025/williams-logo.png', 'https://media.formula1.com/d_team_car_fallback_image.png/content/dam/fom-website/teams/2025/williams.png');
