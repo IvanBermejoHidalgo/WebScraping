@@ -94,8 +94,8 @@ switch ($path[1]) {
     
     case 'circuitos':
         if (isset($_SESSION['user_id'])) {
-            $teams = DatabaseController::getCircuits();
-            echo $twig->render('circuitos.html', ['circuits' => $circuit]);
+            $race = DatabaseController::getRaces();
+            echo $twig->render('circuitos.html', ['races' => $race]);
         } else {
             header("Location: /");
             exit();

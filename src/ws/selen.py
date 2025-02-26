@@ -108,56 +108,43 @@ def teams(url):
 
 
 
-
 def races2024(url):
     options = Options()
-    options.headless = False  # Cambia a True si no necesitas ver el navegador
+    options.headless = False
     driver = webdriver.Chrome(options=options)
+    driver.get(url)
 
     try:
-        # Navegar a la URL
-        driver.get(url)
-
-        # Esperar a que la tabla de carreras esté presente
-        WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'table.resultsarchive-table'))
-        )
-
-        # Encontrar las filas de la tabla
-        carreras = driver.find_elements(By.CSS_SELECTOR, 'table.resultsarchive-table tbody tr')
-
-        if not carreras:
-            print("No se encontraron carreras en la tabla.")
-            return
+        # Encuentra el elemento tbody
+        tbody = driver.find_element(By.TAG_NAME, 'tbody')
+        # Encuentra todas las filas (tr) dentro de tbody
+        rows = tbody.find_elements(By.TAG_NAME, 'tr')
 
         with open("races.sql", "w", encoding="utf-8") as file:
-            for carrera in carreras:
+            for row in rows:
                 try:
-                    # Extraer datos de la fila
-                    grand_prix = carrera.find_element(By.CSS_SELECTOR, 'td a').text.strip()
-                    date = carrera.find_element(By.CSS_SELECTOR, 'td:nth-child(2) p').text.strip()
-                    winner = carrera.find_element(By.CSS_SELECTOR, 'td:nth-child(3) p').text.strip()
-                    car = carrera.find_element(By.CSS_SELECTOR, 'td:nth-child(4) p').text.strip()
-                    laps = carrera.find_element(By.CSS_SELECTOR, 'td:nth-child(5) p').text.strip()
-                    race_time = carrera.find_element(By.CSS_SELECTOR, 'td:nth-child(6) p').text.strip()
+                    # Extrae los datos de cada columna (td)
+                    columns = row.find_elements(By.TAG_NAME, 'td')
+                    grand_prix = columns[0].find_element(By.TAG_NAME, 'p').text.strip()
+                    date = columns[1].find_element(By.TAG_NAME, 'p').text.strip()
+                    winner = columns[2].find_element(By.TAG_NAME, 'p').text.strip()
+                    car = columns[3].find_element(By.TAG_NAME, 'p').text.strip()
+                    laps = columns[4].find_element(By.TAG_NAME, 'p').text.strip()
+                    #race_time = columns[5].find_element(By.TAG_NAME, 'p').text.strip()
 
-                    # Crear la instrucción SQL
+                    # Crea la consulta SQL
                     insert_query = (
-                        f"INSERT INTO races (grand_prix, race_date, winner, car, laps, race_time) VALUES "
-                        f"('{grand_prix}', '{date}', '{winner}', '{car}', {laps}, '{race_time}');"
+                        f"INSERT INTO races (grand_prix, race_date, winner, car, laps) VALUES "
+                        f"('{grand_prix}', '{date}', '{winner}', '{car}', {laps});"
                     )
-
-                    # Escribir la consulta en el archivo
                     file.write(insert_query + "\n")
 
                 except Exception as row_error:
-                    print(f"Error al procesar una carrera: {row_error}")
+                    print(f"Error al procesar una fila: {row_error}")
 
         print("Datos guardados en 'races.sql'")
-
     except Exception as e:
         print(f"Error al obtener los datos: {e}")
-
     finally:
         driver.quit()
 
@@ -166,7 +153,8 @@ def races2024(url):
 
 
 
+
 #Scrape headlines using Selenium
-drivers(cnn_url)
+#drivers(cnn_url)
 #teams(teams_url)
-#races2024(races2024_url)
+races2024(races2024_url)

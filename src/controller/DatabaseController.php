@@ -61,8 +61,8 @@ class DatabaseController {
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
   
-    public static function getCircuits() {
-        $sql = "SELECT * FROM circuits";
+    public static function getRaces() {
+        $sql = "SELECT * FROM races";
         $statement = self::connect()->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);

@@ -8,6 +8,7 @@
     <style>
         body {
             background-color: #f8f9fa;
+            padding-top: 70px; /* Añade espacio para el menú fijo */
         }
         .navbar {
             background: linear-gradient(90deg, #e10600, #b90504);
@@ -52,12 +53,27 @@
             margin-bottom: 20px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .card-title img {
+            height: 25px;
+            margin-left: 10px;
+        }
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         .card-img-container {
             display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
             height: 150px;
         }
         .card-img-container img {
@@ -113,15 +129,54 @@
                 background-size: 12%;
             }
         }
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        footer a:hover {
+            color: #e10600;
+        }
+        .footer-logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .footer-section {
+            margin-bottom: 20px;
+        }
+        .footer-section h5 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .footer-section p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .footer-bottom {
+            background-color: #000;
+            padding: 10px 0;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-bottom p {
+            margin: 0;
+        }
     </style>
-    
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Menú de navegación fijo -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/home">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo"> <!-- Logo de Fórmula 1 -->
-                
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -155,16 +210,16 @@
             {% for driver in drivers %}
                 <div class="col-md-4 mb-4">
                     <div class="card">
-                        <!-- Contenedor flexible para las imágenes -->
                         <div class="card-img-container">
                             <img src="{{ driver.piloto_img }}" alt="{{ driver.first_name }} {{ driver.last_name }}">
-                            <img src="{{ driver.flag_url }}" alt="{{ driver.country }}">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ driver.first_name }} {{ driver.last_name }}</h5>
+                            <div class="card-title">
+                                {{ driver.first_name }} {{ driver.last_name  }}
+                                <img src="{{ driver.flag_url }}" alt="{{ driver.country }}">
+                            </div>
                             <p class="card-text">
                                 <strong>Equipo:</strong> {{ driver.team }}<br>
-                                <strong>Puntos:</strong> {{ driver.points }}<br>
                                 <strong>País:</strong> {{ driver.country }}
                             </p>
                         </div>
@@ -173,6 +228,31 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="decorative-section"></div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 footer-section">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo" class="footer-logo">
+                    <p>La máxima categoría del automovilismo. Descubre todo sobre las escuderías, pilotos y circuitos.</p>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h5>Enlaces rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/scuderias">Scuderias</a></li>
+                        <li><a href="/pilotos">Pilotos</a></li>
+                        <li><a href="/circuitos">Circuitos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h5>Contacto</h5>
+                    <p>Email: <a href="mailto:ibermejo@elpuig.xeill.net">ibermejo@elpuig.xeill.net</a></p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
