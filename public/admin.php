@@ -4,6 +4,7 @@ session_start(); // Inicia la sesión al principio
 require_once "../vendor/autoload.php";
 require_once "../src/controller/AdminController.php";
 require_once "../src/controller/TeamsController.php";
+require_once "../src/controller/DriversController.php";
 require_once "../src/controller/DatabaseController.php";
 
 $loader = new \Twig\Loader\FilesystemLoader('views/admin');
@@ -38,6 +39,12 @@ switch ($path[1]) {
                 header("Location: /admin");
                 exit();
             }
+
+
+
+
+
+
         } elseif ($path[2] === 'scuderias') {
             if (isAdminLoggedIn()) {
                 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($path[3])) {
@@ -73,6 +80,11 @@ switch ($path[1]) {
                 header("Location: /admin");
                 exit();
             }
+
+
+
+
+
         } elseif ($path[2] === 'add-team') {
             if (isAdminLoggedIn()) {
                 echo $twig->render('scuderias/add_team.php');
@@ -80,6 +92,10 @@ switch ($path[1]) {
                 header("Location: /admin");
                 exit();
             }
+
+
+
+
         } elseif ($path[2] === 'edit-team' && isset($path[3])) {
             if (isAdminLoggedIn()) {
                 $id = $path[3];
@@ -89,15 +105,72 @@ switch ($path[1]) {
                 header("Location: /admin");
                 exit();
             }
+
+
+
+
+
+        } elseif ($path[2] === 'drivers') {
+            if (isAdminLoggedIn()) {
+                if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($path[3])) {
+                    // Procesar añadir o editar piloto
+                    $first_name = $_POST['first_name'];
+                    $last_name = $_POST['last_name'];
+                    $team = $_POST['team'];
+                    $country = $_POST['country'];
+                    $flag_url = $_POST['flag_url'];
+                    $piloto_img = $_POST['piloto_img'];
+    
+                    if ($path[3] === 'add') {
+                        DriversController::addDriver($first_name, $last_name, $team, $country, $flag_url, $piloto_img);
+                        header("Location: /admin/drivers");
+                        exit();
+                    } elseif ($path[3] === 'edit' && isset($path[4])) {
+                        $id = $path[4];
+                        DriversController::editDriver($id, $first_name, $last_name, $team, $country, $flag_url, $piloto_img);
+                        header("Location: /admin/drivers");
+                        exit();
+                    }
+                } elseif ($path[3] === 'delete' && isset($path[4])) {
+                    // Eliminar piloto
+                    $id = $path[4];
+                    DriversController::deleteDriver($id);
+                    header("Location: /admin/drivers");
+                    exit();
+                } else {
+                    // Mostrar lista de pilotos
+                    $drivers = DatabaseController::getDrivers();
+                    echo $twig->render('drivers/drivers.php', ['drivers' => $drivers]);
+                }
+            } else {
+                header("Location: /admin");
+                exit();
+            }
+        } elseif ($path[2] === 'add-driver') {
+            if (isAdminLoggedIn()) {
+                echo $twig->render('drivers/add_driver.php');
+            } else {
+                header("Location: /admin");
+                exit();
+            }
+        } elseif ($path[2] === 'edit-driver' && isset($path[3])) {
+            if (isAdminLoggedIn()) {
+                $id = $path[3];
+                $driver = DriversController::getDriverById($id);
+                echo $twig->render('drivers/edit_driver.php', ['driver' => $driver]);
+            } else {
+                header("Location: /admin");
+                exit();
+            }
         } else {
             // Mostrar el formulario de login para administradores
             require $views . 'login.php';
-
+    
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $result = AdminController::adminLogin($username, $password);
-
+    
                 if ($result === "success") {
                     header("Location: /admin/dashboard");
                     exit();

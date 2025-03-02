@@ -81,7 +81,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ drivers|length }}</h5>
                         <p class="card-text">Número de pilotos registrados.</p>
-                        <a href="/admin/drivers" class="btn btn-primary">Gestionar Pilotos</a>
+                        <a href="/admin/drivers/drivers" class="btn btn-primary">Gestionar Pilotos</a>
                     </div>
                 </div>
             </div>
