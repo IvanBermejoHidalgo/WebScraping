@@ -10,50 +10,150 @@
     <style>
         body {
             background-color: #f8f9fa;
+            padding-top: 70px; /* Espacio para el menú fijo */
         }
         .navbar {
-            background-color: #e10600; /* Rojo de Fórmula 1 */
+            background: linear-gradient(90deg, #e10600, #b90504);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 5px 0;
         }
-        .navbar-brand, .nav-link {
-            color: white !important;
+        .navbar-brand {
+            font-size: 1.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
         }
-        .navbar-brand:hover, .nav-link:hover {
-            color: #ffc107 !important; /* Amarillo al hacer hover */
+        .navbar-brand img {
+            height: 30px;
+            margin-right: 8px;
+            filter: brightness(0) invert(1);
+        }
+        .nav-link {
+            color: white;
+            font-weight: 500;
+            margin: 0 8px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #ffc107;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #ffc107;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
         }
         .jumbotron {
-            background: url('https://via.placeholder.com/1500x500') no-repeat center center;
+            background: url('https://wallpapers.com/images/hd/formula-1-desktop-d9iowlxzig4c6kiw.jpg') no-repeat center center;
             background-size: cover;
             color: white;
-            padding: 100px 25px;
+            padding: 150px 25px;
             text-align: center;
+            position: relative;
+            margin-top: -70px;
+        }
+        .jumbotron::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Fondo oscuro para mejorar la legibilidad */
         }
         .jumbotron h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: bold;
+            position: relative;
+            z-index: 1;
         }
         .jumbotron p {
             font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
         }
         .section {
-            padding: 60px 0;
+            padding: 80px 0;
         }
         .section h2 {
             margin-bottom: 30px;
             font-weight: bold;
+            color: #e10600;
+        }
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify; /* Texto justificado */
+        }
+        .section img {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .text-container {
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 20px; /* Espaciado interno */
+            background-color: white; /* Fondo blanco */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra */
         }
         .footer {
-            background-color: #343a40;
+            background-color: #1a1a1a;
             color: white;
-            padding: 20px 0;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+        .footer a {
+            color: #ffc107;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: #e10600;
+        }
+        .footer-logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        .footer-section {
+            margin-bottom: 20px;
+        }
+        .footer-section h5 {
+            color: #ffc107;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        .footer-section p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .footer-bottom {
+            background-color: #000;
+            padding: 10px 0;
             text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-bottom p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
-    <!-- Barra de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
+    <!-- Barra de navegación fija -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="/home">Fórmula 1</a>
+            <a class="navbar-brand" href="/home">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo">
+                
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -79,25 +179,27 @@
     <!-- Jumbotron (Cabecera) -->
     <div class="jumbotron">
         <div class="container">
-            <h1 class="text-black">Bienvenido a Fórmula 1</h1>
-            <p class="text-black">Explora el emocionante mundo de la Fórmula 1: equipos, pilotos y circuitos.</p>
+            <h1>Bienvenido a Fórmula 1</h1>
+            <p>Explora el emocionante mundo de la Fórmula 1: equipos, pilotos y circuitos.</p>
         </div>
     </div>
 
     <!-- Sección de contenido -->
     <div class="container section">
         <div class="row">
-            <div class="col-md-8">
-                <h2>¿Qué es la Fórmula 1?</h2>
-                <p>
-                    La Fórmula 1 es la categoría más alta del automovilismo deportivo. Es un campeonato mundial de carreras de monoplazas en el que compiten los mejores pilotos y equipos del mundo.
-                </p>
-                <p>
-                    Cada temporada consta de una serie de carreras, conocidas como Grandes Premios, que se celebran en circuitos de todo el mundo. Los equipos compiten por el Campeonato de Constructores, mientras que los pilotos luchan por el Campeonato de Pilotos.
-                </p>
+            <div class="col-md-6">
+                <div class="text-container"> <!-- Contenedor con borde -->
+                    <h2>¿Qué es la Fórmula 1?</h2>
+                    <p>
+                        La Fórmula 1 es la categoría más alta del automovilismo deportivo. Es un campeonato mundial de carreras de monoplazas en el que compiten los mejores pilotos y equipos del mundo.
+                    </p>
+                    <p>
+                        Cada temporada consta de una serie de carreras, conocidas como Grandes Premios, que se celebran en circuitos de todo el mundo. Los equipos compiten por el Campeonato de Constructores, mientras que los pilotos luchan por el Campeonato de Pilotos.
+                    </p>
+                </div>
             </div>
-            <div class="col-md-4">
-                <img src="https://via.placeholder.com/400x300" class="img-fluid rounded" alt="Fórmula 1">
+            <div class="col-md-6">
+                <img src="https://www.motor16.com/wp-content/uploads/2024/01/f1.jpg" class="img-fluid rounded" alt="Fórmula 1">
             </div>
         </div>
     </div>
@@ -105,7 +207,24 @@
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Fórmula 1. Todos los derechos reservados.</p>
+            <div class="row">
+                <div class="col-md-4 footer-section">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Fórmula 1 Logo" class="footer-logo">
+                    <p>La máxima categoría del automovilismo. Descubre todo sobre las escuderías, pilotos y circuitos.</p>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h5>Enlaces rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/scuderias">Scuderias</a></li>
+                        <li><a href="/pilotos">Pilotos</a></li>
+                        <li><a href="/circuitos">Circuitos</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 footer-section">
+                    <h5>Contacto</h5>
+                    <p>Email: <a href="mailto:ibermejo@elpuig.xeill.net">ibermejo@elpuig.xeill.net</a></p>
+                </div>
+            </div>
         </div>
     </footer>
 
