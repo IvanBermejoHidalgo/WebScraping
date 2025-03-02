@@ -5,6 +5,7 @@ require_once "../vendor/autoload.php";
 require_once "../src/controller/AdminController.php";
 require_once "../src/controller/TeamsController.php";
 require_once "../src/controller/DriversController.php";
+require_once "../src/controller/RacesController.php";
 require_once "../src/controller/DatabaseController.php";
 
 $loader = new \Twig\Loader\FilesystemLoader('views/admin');
@@ -158,6 +159,57 @@ switch ($path[1]) {
                 $id = $path[3];
                 $driver = DriversController::getDriverById($id);
                 echo $twig->render('drivers/edit_driver.php', ['driver' => $driver]);
+            } else {
+                header("Location: /admin");
+                exit();
+            }
+        } elseif ($path[2] === 'races') {
+            if (isAdminLoggedIn()) {
+                if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($path[3])) {
+                    // Procesar añadir o editar carrera
+                    $grand_prix = $_POST['grand_prix'];
+                    $race_date = $_POST['race_date'];
+                    $winner = $_POST['winner'];
+                    $car = $_POST['car'];
+                    $laps = $_POST['laps'];
+    
+                    if ($path[3] === 'add') {
+                        RacesController::addRace($grand_prix, $race_date, $winner, $car, $laps);
+                        header("Location: /admin/races");
+                        exit();
+                    } elseif ($path[3] === 'edit' && isset($path[4])) {
+                        $id = $path[4];
+                        RacesController::editRace($id, $grand_prix, $race_date, $winner, $car, $laps);
+                        header("Location: /admin/races");
+                        exit();
+                    }
+                } elseif ($path[3] === 'delete' && isset($path[4])) {
+                    // Eliminar carrera
+                    $id = $path[4];
+                    RacesController::deleteRace($id);
+                    header("Location: /admin/races");
+                    exit();
+                } else {
+                    // Mostrar lista de carreras
+                    $races = DatabaseController::getRaces();
+                    echo $twig->render('races/races.php', ['races' => $races]);
+                }
+            } else {
+                header("Location: /admin");
+                exit();
+            }
+        } elseif ($path[2] === 'add-race') {
+            if (isAdminLoggedIn()) {
+                echo $twig->render('races/add_race.php');
+            } else {
+                header("Location: /admin");
+                exit();
+            }
+        } elseif ($path[2] === 'edit-race' && isset($path[3])) {
+            if (isAdminLoggedIn()) {
+                $id = $path[3];
+                $race = RacesController::getRaceById($id);
+                echo $twig->render('races/edit_race.php', ['race' => $race]);
             } else {
                 header("Location: /admin");
                 exit();
