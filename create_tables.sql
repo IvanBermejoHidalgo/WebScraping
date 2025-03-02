@@ -51,3 +51,19 @@ CREATE TABLE races (
     car VARCHAR(255) NOT NULL,
     laps INT NOT NULL
 );
+
+
+
+
+
+
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,          -- Identificador único del usuario
+    username VARCHAR(50) NOT NULL UNIQUE,       -- Nombre de usuario (único)
+    email VARCHAR(100) NOT NULL UNIQUE,         -- Correo electrónico (único)
+    password VARCHAR(255) NOT NULL,             -- Contraseña cifrada
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Fecha de creación del usuario
+);
+
+ALTER TABLE User ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user';
+UPDATE User SET role = 'admin' WHERE id = 1; -- Asignar rol admin al usuario con id 1

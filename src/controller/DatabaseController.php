@@ -53,14 +53,32 @@ class DatabaseController {
       $statement->execute();
       return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-  
+
+    public static function addTeam($team_name, $driver1, $driver2, $img_team, $img_car) {
+      $sql = "INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES (:team_name, :driver1, :driver2, :img_team, :img_car)";
+      $statement = self::connect()->prepare($sql);
+      $statement->bindValue(':team_name', $team_name);
+      $statement->bindValue(':driver1', $driver1);
+      $statement->bindValue(':driver2', $driver2);
+      $statement->bindValue(':img_team', $img_team);
+      $statement->bindValue(':img_car', $img_car);
+      return $statement->execute();
+    }
+    
+    public static function deleteTeam($id) {
+        $sql = "DELETE FROM teams WHERE id = :id";
+        $statement = self::connect()->prepare($sql);
+        $statement->bindValue(':id', $id);
+        return $statement->execute();
+    }
+    
     public static function getDrivers() {
         $sql = "SELECT * FROM drivers";
         $statement = self::connect()->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
-  
+
     public static function getRaces() {
         $sql = "SELECT * FROM races";
         $statement = self::connect()->prepare($sql);
