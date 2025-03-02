@@ -214,6 +214,12 @@ switch ($path[1]) {
                 header("Location: /admin");
                 exit();
             }
+        } elseif ($path[2] === 'logout') {
+            // Cerrar sesión
+            session_start(); // Iniciar la sesión si no está iniciada
+            session_destroy(); // Destruir la sesión
+            header("Location: /admin"); // Redirigir al login
+            exit();
         } else {
             // Mostrar el formulario de login para administradores
             require $views . 'login.php';

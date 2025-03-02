@@ -90,6 +90,14 @@ switch ($path[1]) {
             exit();
         }
         break;
+        
+    case 'logout':
+        // Cerrar sesión
+        session_start(); // Iniciar la sesión si no está iniciada
+        session_destroy(); // Destruir la sesión
+        header("Location: /"); // Redirigir al login
+        exit();
+        break;
 
     case 'not-found':
     default:
