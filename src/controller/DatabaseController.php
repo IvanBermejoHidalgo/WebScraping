@@ -87,9 +87,9 @@ class DatabaseController {
     }
 
     public static function getTeamsWithDrivers() {
-      $pdo = self::connect(); // Cambia esto
+      $pdo = self::connect();
       $query = "
-          SELECT t.id AS team_id, t.team_name, t.img_team, t.img_car, 
+          SELECT t.team_name, t.img_team, t.img_car, 
                  d.id AS driver_id, d.first_name, d.last_name, d.country, d.flag_url, d.piloto_img
           FROM teams t
           LEFT JOIN drivers d ON t.team_name = d.team_name
@@ -97,5 +97,5 @@ class DatabaseController {
       ";
       $stmt = $pdo->query($query);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+  }
   }

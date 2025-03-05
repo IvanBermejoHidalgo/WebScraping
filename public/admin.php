@@ -77,7 +77,15 @@ switch ($path[1]) {
                 } else {
                     // Mostrar lista de equipos
                     $teams = DatabaseController::getTeams();
-                    echo $twig->render('scuderias/teams.php', ['teams' => $teams]);
+                    $teamsWithDrivers = [];
+
+                    foreach ($teams as $team) {
+                        $drivers = TeamsController::getDriversByTeam($team['team_name']);
+                        $team['drivers'] = $drivers; // Añadir los pilotos al equipo
+                        $teamsWithDrivers[] = $team;
+                    }
+
+                    echo $twig->render('scuderias/teams.php', ['teams' => $teamsWithDrivers]);
                 }
             } else {
                 header("Location: /admin");

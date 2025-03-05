@@ -71,8 +71,20 @@
                 {% for team in teams %}
                 <tr>
                     <td>{{ team.team_name }}</td>
-                    <td>{{ team.driver1 }}</td>
-                    <td>{{ team.driver2 }}</td>
+                    <td>
+                        {% if team.drivers[0] %}
+                            {{ team.drivers[0].first_name }} {{ team.drivers[0].last_name }}
+                        {% else %}
+                            Sin piloto
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if team.drivers[1] %}
+                            {{ team.drivers[1].first_name }} {{ team.drivers[1].last_name }}
+                        {% else %}
+                            Sin piloto
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="/admin/edit-team/{{ team.id }}" class="btn btn-warning btn-sm btn-actions">Editar</a>
                         <a href="/admin/scuderias/delete/{{ team.id }}" class="btn btn-danger btn-sm">Eliminar</a>
