@@ -60,18 +60,11 @@
     <!-- Contenido Principal -->
     <div class="form-container">
         <h1>Editar Equipo</h1>
+        <!-- edit_team.php -->
         <form method="POST" action="/admin/scuderias/edit/{{ team.id }}">
             <div class="mb-3">
                 <label for="team_name" class="form-label">Nombre del equipo:</label>
                 <input type="text" class="form-control" id="team_name" name="team_name" value="{{ team.team_name }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="driver1" class="form-label">Piloto 1:</label>
-                <input type="text" class="form-control" id="driver1" name="driver1" value="{{ team.driver1 }}" required>
-            </div>
-            <div class="mb-3">
-                <label for="driver2" class="form-label">Piloto 2:</label>
-                <input type="text" class="form-control" id="driver2" name="driver2" value="{{ team.driver2 }}" required>
             </div>
             <div class="mb-3">
                 <label for="img_team" class="form-label">URL del logo del equipo:</label>

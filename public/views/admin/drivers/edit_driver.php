@@ -71,7 +71,14 @@
             </div>
             <div class="mb-3">
                 <label for="team" class="form-label">Equipo:</label>
-                <input type="text" class="form-control" id="team" name="team" value="{{ driver.team }}" required>
+                <select class="form-control" id="team" name="team">
+                    <option value="">Sin equipo</option>
+                    {% for team in teams %}
+                        <option value="{{ team.team_name }}" {% if driver.team_name == team.team_name %}selected{% endif %}>
+                            {{ team.team_name }}
+                        </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="mb-3">
                 <label for="country" class="form-label">País:</label>

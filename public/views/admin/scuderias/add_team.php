@@ -7,28 +7,17 @@
     <!-- Bootstrap CSS -->
     <link href="../../assets/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Estilos personalizados */
         body {
             background-color: #f8f9fa;
             padding-top: 56px; /* Ajuste para el navbar fijo */
         }
         .form-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .form-container h1 {
-            margin-bottom: 20px;
-            font-size: 2rem;
-            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar (opcional, si tienes uno) -->
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/admin/dashboard">Admin Dashboard</a>
@@ -58,27 +47,22 @@
     </nav>
 
     <!-- Contenido Principal -->
-    <div class="form-container">
-        <h1>Añadir Equipo</h1>
-        <form method="POST" action="/admin/scuderias/add">
+    <div class="container form-container">
+        <h1 class="mb-4">Añadir Nuevo Equipo</h1>
+
+        <!-- Formulario para añadir equipo -->
+        <!-- add_team.php -->
+        <form action="/admin/scuderias/add" method="POST">
             <div class="mb-3">
-                <label for="team_name" class="form-label">Nombre del equipo:</label>
+                <label for="team_name" class="form-label">Nombre del Equipo</label>
                 <input type="text" class="form-control" id="team_name" name="team_name" required>
             </div>
             <div class="mb-3">
-                <label for="driver1" class="form-label">Piloto 1:</label>
-                <input type="text" class="form-control" id="driver1" name="driver1" required>
-            </div>
-            <div class="mb-3">
-                <label for="driver2" class="form-label">Piloto 2:</label>
-                <input type="text" class="form-control" id="driver2" name="driver2" required>
-            </div>
-            <div class="mb-3">
-                <label for="img_team" class="form-label">URL del logo del equipo:</label>
+                <label for="img_team" class="form-label">Imagen del Equipo (URL)</label>
                 <input type="text" class="form-control" id="img_team" name="img_team" required>
             </div>
             <div class="mb-3">
-                <label for="img_car" class="form-label">URL del coche:</label>
+                <label for="img_car" class="form-label">Imagen del Coche (URL)</label>
                 <input type="text" class="form-control" id="img_car" name="img_car" required>
             </div>
             <button type="submit" class="btn btn-primary">Añadir Equipo</button>

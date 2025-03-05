@@ -228,9 +228,13 @@
                                 {{ team.team_name }}
                                 <img src="{{ team.img_team }}" alt="Logo de {{ team.team_name }}">
                             </div>
-                            <p class="card-text">
-                                <strong>Pilotos:</strong> {{ team.driver1 }} y {{ team.driver2 }}
-                            </p>
+                            {% for driver in teamsWithDrivers %}
+                                {% if driver.team_name == team.team_name %}
+                                    <p class="card-text">
+                                        <strong>Pilotos:</strong> {{ driver.first_name }} y {{ driver.last_name }}
+                                    </p>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

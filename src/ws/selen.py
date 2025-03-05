@@ -47,7 +47,7 @@ def drivers(url):
 # ('{numdriver.strip()}', {numPo.text.strip()}, '{nombre.text.strip()}', '{apellido.text.strip()}', '{scuderia.text.strip()}', {punto.text.strip()}, 
 # '{imgPaises_alt.strip()}', '{imgPaises_src.strip()}', '{numPilotos_src.strip()}');"""
                 
-                insert_query = f"""INSERT INTO drivers (first_name, last_name, team, country, flag_url, piloto_img) VALUES 
+                insert_query = f"""INSERT INTO drivers (first_name, last_name, team_name, country, flag_url, piloto_img) VALUES 
 ('{nombre.text.strip()}', '{apellido.text.strip()}', '{scuderia.text.strip()}', '{imgPaises_alt.strip()}', '{imgPaises_src.strip()}', '{imgPilotos_src.strip()}');"""
             
                 file.write(insert_query + "\n")
@@ -80,10 +80,10 @@ def teams(url):
                 #posicion = equipo.find_element(By.CLASS_NAME, 'f1-heading-black.font-formulaOne.tracking-normal.font-black.non-italic.text-fs-42px.leading-none').text.strip()
                 nombre_equipo = equipo.find_element(By.CLASS_NAME, 'f1-inner-wrapper.flex.flex-col.gap-micro.text-brand-black').text.strip()
 
-                pilotos = equipo.find_elements(By.CLASS_NAME, 'f1-team-driver-name')
-                if len(pilotos) >= 2:
-                    piloto1 = pilotos[0].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
-                    piloto2 = pilotos[1].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
+                #pilotos = equipo.find_elements(By.CLASS_NAME, 'f1-team-driver-name')
+                # if len(pilotos) >= 2:
+                #     piloto1 = pilotos[0].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
+                #     piloto2 = pilotos[1].find_elements(By.CLASS_NAME, 'f1-heading')[1].text.strip()
                     
 
                 #puntos = equipo.find_element(By.CLASS_NAME, 'f1-heading-wide.font-formulaOneWide.tracking-normal.font-normal.non-italic.text-fs-18px.leading-none.normal-case').text.strip()
@@ -93,8 +93,11 @@ def teams(url):
                 # insert_query = f"""INSERT INTO teams (team_position, team_name, driver1, driver2, points, img_team, img_car) VALUES 
                 # ({posicion}, '{nombre_equipo}', '{piloto1}', '{piloto2}', {puntos}, '{imglogo}', '{imgcoche}');"""
 
-                insert_query = f"""INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
-                ('{nombre_equipo}', '{piloto1}', '{piloto2}', '{imglogo}', '{imgcoche}');"""
+                # insert_query = f"""INSERT INTO teams (team_name, driver1, driver2, img_team, img_car) VALUES 
+                # ('{nombre_equipo}', '{piloto1}', '{piloto2}', '{imglogo}', '{imgcoche}');"""
+
+                insert_query = f"""INSERT INTO teams (team_name, img_team, img_car) VALUES 
+                ('{nombre_equipo}', '{imglogo}', '{imgcoche}');"""
                 
                 # Escribe la consulta en el archivo
                 file.write(insert_query + "\n")
@@ -155,6 +158,6 @@ def races2024(url):
 
 
 #Scrape headlines using Selenium
-#drivers(cnn_url)
+drivers(cnn_url)
 #teams(teams_url)
-races2024(races2024_url)
+#races2024(races2024_url)

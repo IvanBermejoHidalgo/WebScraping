@@ -51,18 +51,20 @@ switch ($path[1]) {
                 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($path[3])) {
                     // Procesar añadir o editar equipo
                     $team_name = $_POST['team_name'];
-                    $driver1 = $_POST['driver1'];
-                    $driver2 = $_POST['driver2'];
+                    //$driver1 = $_POST['driver1'];
+                    //$driver2 = $_POST['driver2'];
                     $img_team = $_POST['img_team'];
                     $img_car = $_POST['img_car'];
 
                     if ($path[3] === 'add') {
-                        TeamsController::addTeam($team_name, $driver1, $driver2, $img_team, $img_car);
+                        //TeamsController::addTeam($team_name, $driver1, $driver2, $img_team, $img_car);
+                        TeamsController::addTeam($team_name, $img_team, $img_car);
                         header("Location: /admin/scuderias");
                         exit();
                     } elseif ($path[3] === 'edit' && isset($path[4])) {
                         $id = $path[4];
-                        TeamsController::editTeam($id, $team_name, $driver1, $driver2, $img_team, $img_car);
+                        //TeamsController::editTeam($id, $team_name, $driver1, $driver2, $img_team, $img_car);
+                        TeamsController::editTeam($id, $team_name, $img_team, $img_car);
                         header("Location: /admin/scuderias");
                         exit();
                     }
@@ -149,20 +151,28 @@ switch ($path[1]) {
             }
         } elseif ($path[2] === 'add-driver') {
             if (isAdminLoggedIn()) {
-                echo $twig->render('drivers/add_driver.php');
+                $teams = DatabaseController::getTeams();
+                echo $twig->render('drivers/add_driver.php', ['teams' => $teams]);
+                //echo $twig->render('drivers/add_driver.php');
             } else {
                 header("Location: /admin");
                 exit();
             }
+            break;
         } elseif ($path[2] === 'edit-driver' && isset($path[3])) {
             if (isAdminLoggedIn()) {
                 $id = $path[3];
                 $driver = DriversController::getDriverById($id);
-                echo $twig->render('drivers/edit_driver.php', ['driver' => $driver]);
+                $teams = DatabaseController::getTeams(); // Obtener la lista de equipos
+                echo $twig->render('drivers/edit_driver.php', [
+                    'driver' => $driver,
+                    'teams' => $teams // Pasar la lista de equipos
+                ]);
             } else {
                 header("Location: /admin");
                 exit();
             }
+            break;
         } elseif ($path[2] === 'races') {
             if (isAdminLoggedIn()) {
                 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($path[3])) {

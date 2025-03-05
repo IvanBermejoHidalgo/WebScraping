@@ -64,7 +64,12 @@ switch ($path[1]) {
     case 'scuderias':
         if (isset($_SESSION['user_id'])) {
             $teams = DatabaseController::getTeams();
-            echo $twig->render('scuderias.html', ['teams' => $teams]);
+            $teamsWithDrivers = DatabaseController::getTeamsWithDrivers();
+            echo $twig->render('scuderias.html', [
+                'teams' => $teams,
+                'teamsWithDrivers' => $teamsWithDrivers
+            ]);
+            
         } else {
             header("Location: /");
             exit();

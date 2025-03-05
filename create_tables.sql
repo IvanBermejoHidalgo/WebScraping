@@ -21,6 +21,28 @@ CREATE TABLE drivers (
     piloto_img TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+-- TABLA FINAL DRIVERS --
+CREATE TABLE drivers (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    team_name VARCHAR(100) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    flag_url TEXT NOT NULL,
+    piloto_img TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE drivers (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    team_name VARCHAR(100),
+    country VARCHAR(50) NOT NULL,
+    flag_url TEXT NOT NULL,
+    piloto_img TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- TABLE TEAMS -- 
 CREATE TABLE teams (
     team_position INT PRIMARY KEY,
@@ -38,6 +60,14 @@ CREATE TABLE teams (
     team_name VARCHAR(100) NOT NULL,
     driver1 VARCHAR(100) NOT NULL,
     driver2 VARCHAR(100) NOT NULL,
+    img_team TEXT NOT NULL,
+    img_car TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- TABLA FINAL TEAMS --
+CREATE TABLE teams (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    team_name VARCHAR(100) NOT NULL,
     img_team TEXT NOT NULL,
     img_car TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

@@ -73,7 +73,7 @@
                 <tr>
                     <td>{{ driver.first_name }}</td>
                     <td>{{ driver.last_name }}</td>
-                    <td>{{ driver.team }}</td>
+                    <td>{{ driver.team_name }}</td>
                     <td>{{ driver.country }}</td>
                     <td>
                         <a href="/admin/edit-driver/{{ driver.id }}" class="btn btn-warning btn-sm btn-actions">Editar</a>
