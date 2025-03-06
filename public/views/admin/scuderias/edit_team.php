@@ -61,17 +61,18 @@
     <div class="form-container">
         <h1>Editar Equipo</h1>
         <!-- edit_team.php -->
+        <!-- edit_team.php -->
         <form method="POST" action="/admin/scuderias/edit/{{ team.id }}">
             <div class="mb-3">
-                <label for="team_name" class="form-label">Nombre del equipo:</label>
+                <label for="team_name" class="form-label">Nombre del Equipo:</label>
                 <input type="text" class="form-control" id="team_name" name="team_name" value="{{ team.team_name }}" required>
             </div>
             <div class="mb-3">
-                <label for="img_team" class="form-label">URL del logo del equipo:</label>
+                <label for="img_team" class="form-label">Imagen del Equipo:</label>
                 <input type="text" class="form-control" id="img_team" name="img_team" value="{{ team.img_team }}" required>
             </div>
             <div class="mb-3">
-                <label for="img_car" class="form-label">URL del coche:</label>
+                <label for="img_car" class="form-label">Imagen del Coche:</label>
                 <input type="text" class="form-control" id="img_car" name="img_car" value="{{ team.img_car }}" required>
             </div>
             <button type="submit" class="btn btn-primary">Guardar Cambios</button>

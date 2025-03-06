@@ -60,6 +60,8 @@
     <!-- Contenido Principal -->
     <div class="form-container">
         <h1>Editar Carrera</h1>
+        <!-- edit_race.php -->
+        <!-- edit_race.php -->
         <form method="POST" action="/admin/races/edit/{{ race.id }}">
             <div class="mb-3">
                 <label for="grand_prix" class="form-label">Gran Premio:</label>
@@ -71,11 +73,25 @@
             </div>
             <div class="mb-3">
                 <label for="winner" class="form-label">Ganador:</label>
-                <input type="text" class="form-control" id="winner" name="winner" value="{{ race.winner }}" required>
+                <select class="form-control" id="winner" name="winner" required>
+                    {% for driver in drivers %}
+                    <option value="{{ driver.first_name }} {{ driver.last_name }}" 
+                        {% if race.winner == driver.first_name ~ ' ' ~ driver.last_name %}selected{% endif %}>
+                        {{ driver.first_name }} {{ driver.last_name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="mb-3">
                 <label for="car" class="form-label">Coche:</label>
-                <input type="text" class="form-control" id="car" name="car" value="{{ race.car }}" required>
+                <select class="form-control" id="car" name="car" required>
+                    {% for team in teams %}
+                    <option value="{{ team.team_name }}" 
+                        {% if race.car == team.team_name %}selected{% endif %}>
+                        {{ team.team_name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="mb-3">
                 <label for="laps" class="form-label">Vueltas:</label>

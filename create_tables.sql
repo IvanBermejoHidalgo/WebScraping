@@ -322,7 +322,7 @@ CREATE TABLE races (
 
 
 
-
+-- TABLAS BUENAS --
 
 
 -- Crear la tabla teams

@@ -29,6 +29,15 @@ class TeamsController {
         return $statement->execute();
     }
 
+    // Obtener un equipo por ID
+    public static function getTeamById($id) {
+        $sql = "SELECT * FROM teams WHERE id = :id";
+        $statement = (new self)->connection->prepare($sql);
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
     // Método para obtener los pilotos de un equipo
     public static function getDriversByTeam($team_name) {
         $sql = "SELECT * FROM drivers WHERE team_name = :team_name";
@@ -45,11 +54,4 @@ class TeamsController {
         return $statement->execute();
     }
 
-    public static function getTeamById($id) {
-        $sql = "SELECT * FROM teams WHERE id = :id";
-        $statement = (new self)->connection->prepare($sql);
-        $statement->bindValue(':id', $id);
-        $statement->execute();
-        return $statement->fetch(PDO::FETCH_OBJ);
-    }
 }
