@@ -103,5 +103,12 @@ class DatabaseController {
       $statement = self::connect()->prepare($sql);
       $statement->execute();
       return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function getTeamWinners() {
+      $sql = "SELECT car_team_name, COUNT(*) as count FROM races GROUP BY car_team_name";
+      $statement = self::connect()->prepare($sql);
+      $statement->execute();
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
   }

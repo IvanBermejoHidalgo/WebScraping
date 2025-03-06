@@ -55,9 +55,11 @@ switch ($path[1]) {
 
     case 'home':
         if (isset($_SESSION['user_id'])) {
-            // Obtener los datos de los ganadores
+            // Obtener los datos de los ganadores individuales
             $winners = DatabaseController::getWinners();
-
+            // Obtener los datos de los ganadores por equipos
+            $teamWinners = DatabaseController::getTeamWinners();
+    
             // Convertir los datos a un formato que Twig pueda usar
             $labels = [];
             $data = [];
@@ -65,13 +67,24 @@ switch ($path[1]) {
                 $labels[] = $winner['winner'];
                 $data[] = $winner['count'];
             }
-
+    
+            $teamLabels = [];
+            $teamData = [];
+            foreach ($teamWinners as $teamWinner) {
+                $teamLabels[] = $teamWinner['car_team_name'];
+                $teamData[] = $teamWinner['count'];
+            }
+    
             // Renderizar la plantilla Twig con los datos
             echo $twig->render('home.php', [
                 'labels' => $labels,
                 'data' => $data,
-                'labels_js' => json_encode($labels), // Convertir a JSON para JavaScript
-                'data_js' => json_encode($data),     // Convertir a JSON para JavaScript
+                'labels_js' => json_encode($labels),
+                'data_js' => json_encode($data),
+                'teamLabels' => $teamLabels,
+                'teamData' => $teamData,
+                'teamLabels_js' => json_encode($teamLabels),
+                'teamData_js' => json_encode($teamData),
             ]);
         } else {
             header("Location: /");

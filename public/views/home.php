@@ -214,8 +214,25 @@
         <div class="row">
             <div class="col-md-12">
                 <h2>Distribución de Victorias en la Temporada</h2>
-                <div class="chart-container" style="width: 600px; height: 600px; margin: 0 auto;">
-                    <canvas id="winnersChart"></canvas>
+                    <div class="text-container">
+                        <div class="chart-container" style="width: 500px; height: 500px; margin: 0 auto;">
+                            <canvas id="winnersChart"></canvas>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="container section">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Distribución de Victorias por Equipos en la Temporada</h2>
+                <div class="text-container">
+                    <div class="chart-container" style="width: 500px; height: 500px; margin: 0 auto;">
+                        <canvas id="teamWinnersChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
@@ -292,6 +309,49 @@
                     title: {
                         display: true,
                         text: 'Distribución de Victorias en la Temporada'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        const teamLabels = {{ teamLabels_js|raw }};
+        const teamData = {{ teamData_js|raw }};
+
+        const teamCtx = document.getElementById('teamWinnersChart').getContext('2d');
+        const teamWinnersChart = new Chart(teamCtx, {
+            type: 'pie',
+            data: {
+                labels: teamLabels,
+                datasets: [{
+                    label: 'Número de Victorias por Equipos',
+                    data: teamData,
+                    backgroundColor: [
+                        '#FF6384', // Rosa
+                        '#36A2EB', // Azul
+                        '#FFCE56', // Amarillo
+                        '#4BC0C0', // Turquesa
+                        '#9966FF', // Morado
+                        '#FF9F40', // Naranja
+                        '#C9CBCF', // Gris
+                        '#77DD77', // Verde claro
+                        '#FF6961', // Rojo claro
+                        '#FDFD96'  // Amarillo claro
+                    ],
+                    borderColor: '#ffffff', // Borde blanco
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Victorias por Equipos en la Temporada'
                     }
                 }
             }
