@@ -6,6 +6,8 @@
     <title>Home - Fórmula 1</title>
     <!-- Bootstrap CSS -->
     <link href="assets/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <script src="../../node_modules/chart.js/dist/chart.umd.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Estilos personalizados -->
     <style>
         body {
@@ -204,6 +206,24 @@
         </div>
     </div>
 
+
+
+
+    <!-- Sección de la gráfica de quesito -->
+    <div class="container section">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Distribución de Victorias en la Temporada</h2>
+                <div class="chart-container" style="width: 600px; height: 600px; margin: 0 auto;">
+                    <canvas id="winnersChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    
+
     <!-- Pie de página -->
     <footer class="footer">
         <div class="container">
@@ -230,5 +250,52 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Definir las variables labels y data
+        const labels = {{ labels_js|raw }};
+        const data = {{ data_js|raw }};
+    </script>
+
+    <!-- Script para la gráfica -->
+    <script>
+        const ctx = document.getElementById('winnersChart').getContext('2d');
+        const winnersChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Número de Victorias',
+                    data: data,
+                    backgroundColor: [
+                    '#FF6384', // Rosa
+                    '#36A2EB', // Azul
+                    '#FFCE56', // Amarillo
+                    '#4BC0C0', // Turquesa
+                    '#9966FF', // Morado
+                    '#FF9F40', // Naranja
+                    '#C9CBCF', // Gris
+                    '#77DD77', // Verde claro
+                    '#FF6961', // Rojo claro
+                    '#FDFD96'  // Amarillo claro
+                ],
+                borderColor: '#ffffff', // Borde blanco
+                borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distribución de Victorias en la Temporada'
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

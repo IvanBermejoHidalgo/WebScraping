@@ -97,5 +97,11 @@ class DatabaseController {
       ";
       $stmt = $pdo->query($query);
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function getWinners() {
+      $sql = "SELECT winner, COUNT(*) as count FROM races GROUP BY winner";
+      $statement = self::connect()->prepare($sql);
+      $statement->execute();
+      return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
   }

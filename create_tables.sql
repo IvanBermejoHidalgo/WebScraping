@@ -332,6 +332,13 @@ CREATE TABLE teams (
     img_car TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+CREATE TABLE teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- Nueva clave primaria autoincremental
+    team_name VARCHAR(100) NOT NULL UNIQUE,  -- Campo único
+    img_team TEXT NOT NULL,
+    img_car TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- Crear la tabla team_mapping
 CREATE TABLE team_mapping (
     team_name VARCHAR(100) NOT NULL,  -- Clave foránea que apunta a teams.team_name

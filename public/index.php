@@ -2,6 +2,7 @@
 
 require_once "../vendor/autoload.php";
 require_once "../src/controller/SessionController.php";
+require_once "../src/controller/DatabaseController.php"; // Asegúrate de incluir DatabaseController
 
 session_start();
 $loader = new \Twig\Loader\FilesystemLoader('views');
@@ -54,7 +55,24 @@ switch ($path[1]) {
 
     case 'home':
         if (isset($_SESSION['user_id'])) {
-            require $views . 'home.php';
+            // Obtener los datos de los ganadores
+            $winners = DatabaseController::getWinners();
+
+            // Convertir los datos a un formato que Twig pueda usar
+            $labels = [];
+            $data = [];
+            foreach ($winners as $winner) {
+                $labels[] = $winner['winner'];
+                $data[] = $winner['count'];
+            }
+
+            // Renderizar la plantilla Twig con los datos
+            echo $twig->render('home.php', [
+                'labels' => $labels,
+                'data' => $data,
+                'labels_js' => json_encode($labels), // Convertir a JSON para JavaScript
+                'data_js' => json_encode($data),     // Convertir a JSON para JavaScript
+            ]);
         } else {
             header("Location: /");
             exit();
@@ -69,7 +87,6 @@ switch ($path[1]) {
                 'teams' => $teams,
                 'teamsWithDrivers' => $teamsWithDrivers
             ]);
-            
         } else {
             header("Location: /");
             exit();
@@ -95,7 +112,7 @@ switch ($path[1]) {
             exit();
         }
         break;
-        
+
     case 'logout':
         // Cerrar sesión
         session_start(); // Iniciar la sesión si no está iniciada
