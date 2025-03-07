@@ -1,0 +1,44 @@
+msgid "Bienvenido a Fórmula 1"
+msgstr "Welcome to Formula 1"
+
+msgid "Explora el emocionante mundo de la Fórmula 1: equipos, pilotos y circuitos."
+msgstr "Explore the exciting world of Formula 1: teams, drivers, and circuits."
+
+msgid "¿Qué es la Fórmula 1?"
+msgstr "What is Formula 1?"
+
+msgid "La Fórmula 1 es la categoría más alta del automovilismo deportivo. Es un campeonato mundial de carreras de monoplazas en el que compiten los mejores pilotos y equipos del mundo."
+msgstr "Formula 1 is the highest class of international auto racing. It is a world championship of single-seater races in which the best drivers and teams compete."
+
+msgid "Cada temporada consta de una serie de carreras, conocidas como Grandes Premios, que se celebran en circuitos de todo el mundo. Los equipos compiten por el Campeonato de Constructores, mientras que los pilotos luchan por el Campeonato de Pilotos."
+msgstr "Each season consists of a series of races, known as Grand Prix, held at circuits around the world. Teams compete for the Constructors' Championship, while drivers fight for the Drivers' Championship."
+
+msgid "Distribución de Victorias en la Temporada"
+msgstr "Distribution of Wins in the Season"
+
+msgid "Distribución de Victorias por Equipos en la Temporada"
+msgstr "Distribution of Wins by Teams in the Season"
+
+msgid "La máxima categoría del automovilismo. Descubre todo sobre las escuderías, pilotos y circuitos."
+msgstr "The pinnacle of motorsport. Discover everything about teams, drivers, and circuits."
+
+msgid "Enlaces rápidos"
+msgstr "Quick Links"
+
+msgid "Scuderias"
+msgstr "Teams"
+
+msgid "Pilotos"
+msgstr "Drivers"
+
+msgid "Circuitos"
+msgstr "Circuits"
+
+msgid "Contacto"
+msgstr "Contact"
+
+msgid "Email:"
+msgstr "Email:"
+
+msgid "Cerrar sesión"
+msgstr "LogOut"

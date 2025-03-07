@@ -1,0 +1,44 @@
+msgid "Bienvenido a Fórmula 1"
+msgstr ""
+
+msgid "Explora el emocionante mundo de la Fórmula 1: equipos, pilotos y circuitos."
+msgstr ""
+
+msgid "¿Qué es la Fórmula 1?"
+msgstr ""
+
+msgid "La Fórmula 1 es la categoría más alta del automovilismo deportivo. Es un campeonato mundial de carreras de monoplazas en el que compiten los mejores pilotos y equipos del mundo."
+msgstr ""
+
+msgid "Cada temporada consta de una serie de carreras, conocidas como Grandes Premios, que se celebran en circuitos de todo el mundo. Los equipos compiten por el Campeonato de Constructores, mientras que los pilotos luchan por el Campeonato de Pilotos."
+msgstr ""
+
+msgid "Distribución de Victorias en la Temporada"
+msgstr ""
+
+msgid "Distribución de Victorias por Equipos en la Temporada"
+msgstr ""
+
+msgid "La máxima categoría del automovilismo. Descubre todo sobre las escuderías, pilotos y circuitos."
+msgstr ""
+
+msgid "Enlaces rápidos"
+msgstr ""
+
+msgid "Scuderias"
+msgstr ""
+
+msgid "Pilotos"
+msgstr ""
+
+msgid "Circuitos"
+msgstr ""
+
+msgid "Contacto"
+msgstr ""
+
+msgid "Email:"
+msgstr ""
+
+msgid "Cerrar sesión"
+msgstr ""

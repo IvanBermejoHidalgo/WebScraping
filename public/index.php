@@ -5,10 +5,43 @@ require_once "../src/controller/SessionController.php";
 require_once "../src/controller/DatabaseController.php"; // Asegúrate de incluir DatabaseController
 
 session_start();
+
+
+
+$language = $_SESSION['language'] ?? 'es'; // Idioma por defecto: español
+
+// Configura el locale según el idioma seleccionado
+if ($language === 'es') {
+    $locale = 'es_ES.UTF-8'; // Locale para español
+} elseif ($language === 'en') {
+    $locale = 'en_US.UTF-8'; // Locale para inglés
+}
+
+putenv("LC_ALL=$locale");
+setlocale(LC_ALL, $locale);
+
+// Usa una ruta absoluta para evitar problemas con rutas relativas
+bindtextdomain('messages', '/var/www/webscraping.local/locale');
+textdomain('messages');
+
+// Verifica la ruta corregida
+// echo "Idioma seleccionado: " . $language . "<br>";
+// echo "Locale configurado: " . $locale . "<br>";
+// echo "Locale actual: " . setlocale(LC_ALL, 0) . "<br>";
+// echo "Ruta de traducciones: " . realpath('/var/www/webscraping.local/locale') . "<br>";
+// echo "Archivo de traducción (es): " . realpath('/var/www/webscraping.local/locale/es/LC_MESSAGES/messages.mo') . "<br>";
+// echo "Archivo de traducción (en): " . realpath('/var/www/webscraping.local/locale/en/LC_MESSAGES/messages.mo') . "<br>";
+
 $loader = new \Twig\Loader\FilesystemLoader('views');
 $twig = new \Twig\Environment($loader, [
     'cache' => false,
 ]);
+
+
+// Añadir la función _() a Twig para traducciones
+$twig->addFunction(new \Twig\TwigFunction('_', function ($string) {
+    return gettext($string);
+}));
 
 $path = explode('/', trim($_SERVER['REQUEST_URI']));
 $views = __DIR__ . '/views/';
@@ -85,6 +118,7 @@ switch ($path[1]) {
                 'teamData' => $teamData,
                 'teamLabels_js' => json_encode($teamLabels),
                 'teamData_js' => json_encode($teamData),
+                'language' => $language, // Pasar el idioma a la plantilla
             ]);
         } else {
             header("Location: /");
@@ -132,6 +166,27 @@ switch ($path[1]) {
         session_destroy(); // Destruir la sesión
         header("Location: /"); // Redirigir al login
         exit();
+        break;
+
+    case 'change-language':
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $language = $_POST['language'];
+            $_SESSION['language'] = $language; // Guardar el idioma en la sesión
+
+            // Configurar el locale con el nuevo idioma
+            if ($language === 'es') {
+                $locale = 'es_ES.UTF-8';
+            } elseif ($language === 'en') {
+                $locale = 'en_US.UTF-8';
+            }
+
+            putenv("LC_ALL=$locale");
+            setlocale(LC_ALL, $locale);
+
+            // Redirigir a la página anterior
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
         break;
 
     case 'not-found':
