@@ -45,9 +45,9 @@ Este proyecto es una aplicación web que permite explorar información sobre equ
 3. **Configurar la base de datos**:
     - Crear una base de datos en MySQL.
     - Importar el archivo SQL proporcionado en schema.sql para crear las tablas y datos iniciales.
-    - Configurar las credenciales de la base de datos en src/controller/DatabaseController.php
+    - Configurar las credenciales de la base de datos en ```bash src/controller/DatabaseController.php
 4. **Configurar el servidor web**:
     - Asegúrate de que el servidor web apunte a la carpeta proyecto-f1.
-    - Configura las reglas de reescritura en .htaccess si es necesario.
+    - Configura las reglas de reescritura en ```bash .htaccess si es necesario.
 5. **Ejecutar el proyecto**:
-    - Abre tu navegador y visita http://localhost/proyecto-f1
+    - Abre tu navegador y visita ```bash http://localhost/proyecto-f1
