@@ -42,3 +42,36 @@ msgstr "Email:"
 
 msgid "Cerrar sesión"
 msgstr "LogOut"
+
+msgid "F1 Equipos 2025"
+msgstr "F1 Teams 2025"
+
+msgid "F1 Pilotos 2025"
+msgstr "F1 Drivers 2025"
+
+msgid "RESULTADOS CARRERAS 2024"
+msgstr "2024 RACE RESULTS"
+
+msgid "Gran Premio"
+msgstr "Grand Prix"
+
+msgid "Fecha"
+msgstr "Date"
+
+msgid "Ganador"
+msgstr "Winner"
+
+msgid "Coche"
+msgstr "Car"
+
+msgid "Vueltas"
+msgstr "Laps"
+
+msgid "Equipo:"
+msgstr "Team:"
+
+msgid "País:"
+msgstr "Country:"
+
+msgid "Piloto:"
+msgstr "Driver:"

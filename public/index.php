@@ -132,7 +132,8 @@ switch ($path[1]) {
             $teamsWithDrivers = DatabaseController::getTeamsWithDrivers();
             echo $twig->render('scuderias.html', [
                 'teams' => $teams,
-                'teamsWithDrivers' => $teamsWithDrivers
+                'teamsWithDrivers' => $teamsWithDrivers,
+                'language' => $language
             ]);
         } else {
             header("Location: /");
@@ -143,7 +144,10 @@ switch ($path[1]) {
     case 'pilotos':
         if (isset($_SESSION['user_id'])) {
             $driver = DatabaseController::getDrivers();
-            echo $twig->render('pilotos.html', ['drivers' => $driver]);
+            echo $twig->render('pilotos.html', [
+                'drivers' => $driver,
+                'language' => $language
+            ]);
         } else {
             header("Location: /");
             exit();
@@ -153,7 +157,10 @@ switch ($path[1]) {
     case 'circuitos':
         if (isset($_SESSION['user_id'])) {
             $race = DatabaseController::getRaces();
-            echo $twig->render('circuitos.html', ['races' => $race]);
+            echo $twig->render('circuitos.html', [
+                'races' => $race,
+                'language' => $language
+            ]);
         } else {
             header("Location: /");
             exit();

@@ -42,3 +42,36 @@ msgstr ""
 
 msgid "Cerrar sesión"
 msgstr ""
+
+msgid "F1 Equipos 2025"
+msgstr ""
+
+msgid "F1 Pilotos 20255"
+msgstr ""
+
+msgid "RESULTADOS CARRERAS 2024"
+msgstr ""
+
+msgid "Gran Premio"
+msgstr "Gran Premio"
+
+msgid "Fecha"
+msgstr "Fecha"
+
+msgid "Ganador"
+msgstr "Ganador"
+
+msgid "Coche"
+msgstr "Coche"
+
+msgid "Vueltas"
+msgstr "Vueltas"
+
+msgid "Equipo:"
+msgstr "Equipo:"
+
+msgid "País:"
+msgstr "País:"
+
+msgid "Piloto:"
+msgstr "Piloto:"
