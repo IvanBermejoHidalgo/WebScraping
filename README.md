@@ -23,34 +23,6 @@ Este proyecto es una aplicación web que permite explorar información sobre equ
 
 ---
 
-## Estructura del proyecto
-proyecto-f1/
-├── assets/ # Archivos estáticos (CSS, imágenes, etc.)
-├── src/ # Código fuente del backend
-│ ├── controller/ # Controladores (lógica de negocio)
-│ │ ├── DatabaseController.php
-│ │ └── SessionController.php
-│ └── model/ # Modelos (interacción con la base de datos)
-├── views/ # Plantillas Twig
-│ ├── home.php # Página principal
-│ ├── scuderias.html # Página de equipos
-│ ├── pilotos.html # Página de pilotos
-│ ├── circuitos.html # Página de circuitos
-│ ├── login.php # Página de inicio de sesión
-│ └── signup.php # Página de registro
-├── locale/ # Archivos de traducción (i18n)
-│ ├── es/LC_MESSAGES/ # Traducciones en español
-│ │ └── messages.mo
-│ └── en/LC_MESSAGES/ # Traducciones en inglés
-│ └── messages.mo
-├── index.php # Punto de entrada de la aplicación
-├── admin.php # Página de administración (si aplica)
-├── composer.json # Configuración de Composer
-├── README.md # Este archivo
-└── .htaccess # Configuración del servidor (si aplica)
-
-
----
 
 ## Instalación y configuración
 
@@ -67,3 +39,15 @@ proyecto-f1/
    ```bash
    git clone https://github.com/tu-usuario/proyecto-f1.git
    cd proyecto-f1
+2. **Instalar dependencias**:
+    ```bash
+    composer install
+3. **Configurar la base de datos**:
+    - Crear una base de datos en MySQL.
+    - Importar el archivo SQL proporcionado en schema.sql para crear las tablas y datos iniciales.
+    - Configurar las credenciales de la base de datos en src/controller/DatabaseController.php
+4. **Configurar el servidor web**:
+    - Asegúrate de que el servidor web apunte a la carpeta proyecto-f1.
+    - Configura las reglas de reescritura en .htaccess si es necesario.
+5. **Ejecutar el proyecto**:
+    - Abre tu navegador y visita http://localhost/proyecto-f1
