@@ -322,19 +322,12 @@ CREATE TABLE races (
 
 
 
--- TABLAS BUENAS --
+
 
 
 -- Crear la tabla teams
 CREATE TABLE teams (
     team_name VARCHAR(100) NOT NULL PRIMARY KEY,  -- Clave primaria
-    img_team TEXT NOT NULL,
-    img_car TEXT NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-CREATE TABLE teams (
-    id INT AUTO_INCREMENT PRIMARY KEY,  -- Nueva clave primaria autoincremental
-    team_name VARCHAR(100) NOT NULL UNIQUE,  -- Campo único
     img_team TEXT NOT NULL,
     img_car TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -371,7 +364,18 @@ CREATE TABLE races (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-
+INSERT INTO team_mapping (team_name, race_team_name)
+VALUES 
+('Red Bull Racing', 'Red Bull Racing Honda RBPT'),
+('Ferrari', 'Ferrari'),
+('Mercedes', 'Mercedes'),
+('McLaren', 'McLaren Mercedes'),
+('Alpine', 'Alpine'),
+('Aston Martin', 'Aston Martin'),
+('Haas', 'Haas'),
+('Kick Sauber', 'Kick Sauber'),
+('Racing Bulls', 'Racing Bulls'),
+('Williams', 'Williams Racing');
 
 INSERT INTO team_mapping (team_name, race_team_name) VALUES
 ('Alpine', 'Alpine'),
