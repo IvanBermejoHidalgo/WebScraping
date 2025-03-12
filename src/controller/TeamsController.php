@@ -39,10 +39,10 @@ class TeamsController {
     }
 
     // Método para obtener los pilotos de un equipo
-    public static function getDriversByTeam($team_name) {
-        $sql = "SELECT * FROM drivers WHERE team_name = :team_name";
+    public static function getDriversByTeam($team_id) {
+        $sql = "SELECT * FROM drivers WHERE team_id = :team_id";
         $statement = (new self)->connection->prepare($sql);
-        $statement->bindValue(':team_name', $team_name);
+        $statement->bindValue(':team_id', $team_id);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }

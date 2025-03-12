@@ -71,10 +71,10 @@
             </div>
             <div class="mb-3">
                 <label for="team" class="form-label">Equipo:</label>
-                <select class="form-control" id="team" name="team">
+                <select class="form-control" id="team" name="team_id">
                     <option value="">Sin equipo</option>
                     {% for team in teams %}
-                        <option value="{{ team.team_name }}" {% if driver.team_name == team.team_name %}selected{% endif %}>
+                        <option value="{{ team.id }}" {% if driver.team_id == team.id %}selected{% endif %}>
                             {{ team.team_name }}
                         </option>
                     {% endfor %}

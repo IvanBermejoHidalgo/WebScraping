@@ -74,20 +74,18 @@
             <div class="mb-3">
                 <label for="winner" class="form-label">Ganador:</label>
                 <select class="form-control" id="winner" name="winner" required>
+                    <option value="">Selecciona un piloto</option>
                     {% for driver in drivers %}
-                    <option value="{{ driver.first_name }} {{ driver.last_name }}">
-                        {{ driver.first_name }} {{ driver.last_name }}
-                    </option>
+                        <option value="{{ driver.last_name }}">{{ driver.last_name }}</option>
                     {% endfor %}
                 </select>
             </div>
             <div class="mb-3">
-                <label for="car" class="form-label">Coche:</label>
-                <select class="form-control" id="car" name="car" required>
+                <label for="team_id" class="form-label">Equipo Ganador:</label>
+                <select class="form-control" id="team_id" name="team_id" required>
+                    <option value="">Selecciona un equipo</option>
                     {% for team in teams %}
-                    <option value="{{ team.team_name }}">
-                        {{ team.team_name }}
-                    </option>
+                        <option value="{{ team.id }}">{{ team.team_name }}</option>
                     {% endfor %}
                 </select>
             </div>

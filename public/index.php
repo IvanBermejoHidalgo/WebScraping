@@ -104,7 +104,7 @@ switch ($path[1]) {
             $teamLabels = [];
             $teamData = [];
             foreach ($teamWinners as $teamWinner) {
-                $teamLabels[] = $teamWinner['car_team_name'];
+                $teamLabels[] = $teamWinner['team_name'];
                 $teamData[] = $teamWinner['count'];
             }
     

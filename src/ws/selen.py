@@ -160,8 +160,19 @@ def scrape_drivers(url):
                 imgPaises_alt = imgPais.find_element(By.TAG_NAME, 'img').get_attribute('alt')
                 imgPilotos_src = imgPilo.get_attribute('src')
 
-                insert_query = f"""INSERT INTO drivers (first_name, last_name, team_name, country, flag_url, piloto_img) VALUES 
-('{nombre.text.strip()}', '{apellido.text.strip()}', '{scuderia.text.strip()}', '{imgPaises_alt.strip()}', '{imgPaises_src.strip()}', '{imgPilotos_src.strip()}');"""
+                # Obtener el team_id basado en el nombre del equipo
+                cursor = connection.cursor()
+                cursor.execute(f"SELECT id FROM teams WHERE team_name = '{scuderia.text.strip()}';")
+                result = cursor.fetchone()
+
+                if result:
+                    team_id = result[0]
+                else:
+                    print(f"Equipo no encontrado: {scuderia.text.strip()}")
+                    team_id = None  # O manejar el error como prefieras
+
+                insert_query = f"""INSERT INTO drivers (first_name, last_name, team_id, country, flag_url, piloto_img) VALUES 
+('{nombre.text.strip()}', '{apellido.text.strip()}', {team_id}, '{imgPaises_alt.strip()}', '{imgPaises_src.strip()}', '{imgPilotos_src.strip()}');"""
                 
                 file.write(insert_query + "\n")
                 if connection:
@@ -198,9 +209,43 @@ def scrape_races(url):
                     car = columns[3].find_element(By.TAG_NAME, 'p').text.strip()
                     laps = columns[4].find_element(By.TAG_NAME, 'p').text.strip()
 
+                    # Mapear el nombre del equipo al nombre correcto
+                    if car == "Red Bull Racing Honda RBPT":
+                        car = "Red Bull Racing"
+                    elif car == "Mercedes":
+                        car = "Mercedes"
+                    elif car == "Ferrari":
+                        car = "Ferrari"
+                    elif car == "McLaren Mercedes":
+                        car = "McLaren"
+                    elif car == "Alpine":
+                        car = "Alpine"
+                    elif car == "Aston Martin":
+                        car = "Aston Martin"
+                    elif car == "Haas":
+                        car = "Haas"
+                    elif car == "Kick Sauber":
+                        car = "Kick Sauber"
+                    elif car == "Racing Bulls":
+                        car = "Racing Bulls"
+                    elif car == "Williams":
+                        car = "Williams"
+
+                    # Obtener el team_id de la tabla teams
+                    cursor = connection.cursor()
+                    cursor.execute(f"SELECT id FROM teams WHERE team_name = '{car}';")
+                    result = cursor.fetchone()
+
+                    if result:
+                        team_id = result[0]
+                    else:
+                        print(f"Equipo no encontrado: {car}")
+                        team_id = None  # O manejar el error como prefieras
+
+                    # Insertar en la tabla races
                     insert_query = (
-                        f"INSERT INTO races (grand_prix, race_date, winner, car_team_name, laps) VALUES "
-                        f"('{grand_prix}', '{date}', '{winner}', '{car}', {laps});"
+                        f"INSERT INTO races (grand_prix, race_date, winner, team_id, laps) VALUES "
+                        f"('{grand_prix}', '{date}', '{winner}', {team_id}, {laps});"
                     )
                     file.write(insert_query + "\n")
                     if connection:
@@ -219,6 +264,5 @@ def scrape_races(url):
 
 # Ejecutar las funciones en el orden correcto
 scrape_teams(teams_url)  # Primero, insertar en `teams`
-scrape_and_create_team_mapping(teams_url, races2024_url)  # Luego, insertar en `team_mapping`
 scrape_drivers(drivers_url)  # Después, insertar en `drivers`
 scrape_races(races2024_url)  # Finalmente, insertar en `races`

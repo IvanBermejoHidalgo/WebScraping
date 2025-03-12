@@ -80,7 +80,7 @@ switch ($path[1]) {
                     $teamsWithDrivers = [];
 
                     foreach ($teams as $team) {
-                        $drivers = TeamsController::getDriversByTeam($team['team_name']);
+                        $drivers = TeamsController::getDriversByTeam($team['id']); // Usar team_id en lugar de team_name
                         $team['drivers'] = $drivers; // Añadir los pilotos al equipo
                         $teamsWithDrivers[] = $team;
                     }
@@ -127,18 +127,18 @@ switch ($path[1]) {
                     // Procesar añadir o editar piloto
                     $first_name = $_POST['first_name'];
                     $last_name = $_POST['last_name'];
-                    $team = $_POST['team'];
+                    $team_id = $_POST['team_id'];
                     $country = $_POST['country'];
                     $flag_url = $_POST['flag_url'];
                     $piloto_img = $_POST['piloto_img'];
     
                     if ($path[3] === 'add') {
-                        DriversController::addDriver($first_name, $last_name, $team, $country, $flag_url, $piloto_img);
+                        DriversController::addDriver($first_name, $last_name, $team_id, $country, $flag_url, $piloto_img);
                         header("Location: /admin/drivers");
                         exit();
                     } elseif ($path[3] === 'edit' && isset($path[4])) {
                         $id = $path[4];
-                        DriversController::editDriver($id, $first_name, $last_name, $team, $country, $flag_url, $piloto_img);
+                        DriversController::editDriver($id, $first_name, $last_name, $team_id, $country, $flag_url, $piloto_img);
                         header("Location: /admin/drivers");
                         exit();
                     }
@@ -218,7 +218,12 @@ switch ($path[1]) {
             }
         } elseif ($path[2] === 'add-race') {
             if (isAdminLoggedIn()) {
-                echo $twig->render('races/add_race.php');
+                $teams = DatabaseController::getTeams(); // Obtener la lista de equipos
+                $drivers = DatabaseController::getDrivers(); // Obtener la lista de pilotos
+                echo $twig->render('races/add_race.php', [
+                    'teams' => $teams,
+                    'drivers' => $drivers // Pasar la lista de pilotos
+                ]);
             } else {
                 header("Location: /admin");
                 exit();
@@ -227,7 +232,13 @@ switch ($path[1]) {
             if (isAdminLoggedIn()) {
                 $id = $path[3];
                 $race = RacesController::getRaceById($id);
-                echo $twig->render('races/edit_race.php', ['race' => $race]);
+                $teams = DatabaseController::getTeams(); // Obtener la lista de equipos
+                $drivers = DatabaseController::getDrivers(); // Obtener la lista de pilotos
+                echo $twig->render('races/edit_race.php', [
+                    'race' => $race,
+                    'teams' => $teams, // Pasar la lista de equipos
+                    'drivers' => $drivers // Pasar la lista de pilotos
+                ]);
             } else {
                 header("Location: /admin");
                 exit();

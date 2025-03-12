@@ -62,10 +62,10 @@
             </div>
             <div class="mb-3">
                 <label for="team" class="form-label">Equipo</label>
-                <select class="form-control" id="team" name="team" required>
+                <select class="form-control" id="team" name="team_id" required>
                     <option value="">Selecciona un equipo</option>
                     {% for team in teams %}
-                        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+                        <option value="{{ team.id }}">{{ team.team_name }}</option>
                     {% endfor %}
                 </select>
             </div>

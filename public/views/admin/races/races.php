@@ -75,7 +75,7 @@
                     <td>{{ race.grand_prix }}</td>
                     <td>{{ race.race_date }}</td>
                     <td>{{ race.winner }}</td>
-                    <td>{{ race.car }}</td>
+                    <td>{{ race.team_name }}</td>
                     <td>{{ race.laps }}</td>
                     <td>
                         <a href="/admin/edit-race/{{ race.id }}" class="btn btn-warning btn-sm btn-actions">Editar</a>
