@@ -22,12 +22,17 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
       .btn-primary {
-        background: #4e73df;
+        background: #dc3545; /* Color rojo de Bootstrap */
         border: none;
         transition: background 0.3s ease;
       }
       .btn-primary:hover {
-        background: #2e59d9;
+        background: #c82333; /* Color rojo más oscuro al hacer hover */
+      }
+      .logo-f1 {
+        display: block;
+        margin: 20px auto 30px; /* Margen superior de 20px y margen inferior de 30px */
+        max-width: 100px; /* Tamaño del logo */
       }
     </style>
   </head>
@@ -35,7 +40,8 @@
 
     <div class="card p-4" style="max-width: 400px; width: 100%;">
       <div class="card-body">
-        <h4 class="card-title text-center mb-4">Iniciar Sesión</h4>
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Logo F1" class="logo-f1">
         
         <form method="POST" action="/">
           <div class="mb-3">

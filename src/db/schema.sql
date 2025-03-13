@@ -1,63 +1,38 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
--- https://www.phpmyadmin.net/
---
--- Servidor: localhost:3306
--- Tiempo de generación: 29-10-2024 a las 15:55:52
--- Versión del servidor: 8.0.39-0ubuntu0.22.04.1
--- Versión de PHP: 8.1.2-1ubuntu2.19
+CREATE TABLE teams (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    team_name VARCHAR(255) NOT NULL,
+    img_team VARCHAR(255),
+    img_car VARCHAR(255),
+    UNIQUE (team_name)  -- Asegura que no haya nombres de equipo duplicados
+);
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+CREATE TABLE drivers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    team_id INT,
+    country VARCHAR(255),
+    flag_url VARCHAR(255),
+    piloto_img VARCHAR(255),
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
+);
 
+CREATE TABLE races (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    grand_prix VARCHAR(255) NOT NULL,
+    race_date VARCHAR(255) NOT NULL,
+    winner VARCHAR(255),
+    team_id INT,
+    laps INT,
+    FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
+);
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE TABLE User (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
+);
 
---
--- Base de datos: `autenticate`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `User`
---
-
-CREATE TABLE `User` (
-  `id` int NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `User`
---
-ALTER TABLE `User`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `User`
---
-ALTER TABLE `User`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+ALTER TABLE User ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user';
+UPDATE User SET role = 'admin' WHERE id = 1; -- Asignar rol admin al usuario con id 1
