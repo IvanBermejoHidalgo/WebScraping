@@ -240,8 +240,6 @@
     </nav>
 
     
-
-    <!-- Jumbotron (Cabecera) -->
     <div class="jumbotron">
         <div class="container">
             <h1>{{ _("Bienvenido a Fórmula 1") }}</h1>
@@ -249,7 +247,6 @@
         </div>
     </div>
 
-    <!-- Sección de contenido -->
     <div class="container section">
         <div class="row">
             <div class="col-md-6">

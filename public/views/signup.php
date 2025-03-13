@@ -41,7 +41,7 @@
     <div class="card p-4" style="max-width: 400px; width: 100%;">
       <div class="card-body">
       <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/F1.svg" alt="Logo F1" class="logo-f1">
-
+        <!-- FORMULARIO PARA PODER REGISTRARSE -->
         <form method="POST" action="/signup">
           <div class="mb-3">
             <label for="username" class="form-label">Nombre de usuario</label>

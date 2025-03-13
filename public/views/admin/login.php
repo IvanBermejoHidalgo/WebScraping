@@ -36,7 +36,7 @@
     <div class="card p-4" style="max-width: 400px; width: 100%;">
       <div class="card-body">
         <h4 class="card-title text-center mb-4">Admin Login</h4>
-        
+        <!-- FORMULARIO PARA PODER INICIAR SESIÓN -->
         <form method="POST" action="/admin">
           <div class="mb-3">
             <label for="username" class="form-label">Usuario</label>

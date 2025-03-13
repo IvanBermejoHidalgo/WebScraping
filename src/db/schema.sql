@@ -1,3 +1,4 @@
+-- CREAR LA TABLA TEAMS
 CREATE TABLE teams (
     id INT AUTO_INCREMENT PRIMARY KEY,
     team_name VARCHAR(255) NOT NULL,
@@ -6,6 +7,7 @@ CREATE TABLE teams (
     UNIQUE (team_name)  -- Asegura que no haya nombres de equipo duplicados
 );
 
+-- CREAR LA TABLA DRIVERS
 CREATE TABLE drivers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
@@ -17,6 +19,7 @@ CREATE TABLE drivers (
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
+-- CREAR LA TABLA RACES
 CREATE TABLE races (
     id INT AUTO_INCREMENT PRIMARY KEY,
     grand_prix VARCHAR(255) NOT NULL,
@@ -27,6 +30,7 @@ CREATE TABLE races (
     FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE SET NULL
 );
 
+-- CREAR LA TABLA USER
 CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
@@ -34,5 +38,7 @@ CREATE TABLE User (
     email VARCHAR(255) NOT NULL UNIQUE
 );
 
+
+-- DARLE PERMISOS DE ADMIN AL USUARIO
 ALTER TABLE User ADD COLUMN role ENUM('user', 'admin') DEFAULT 'user';
 UPDATE User SET role = 'admin' WHERE id = 1; -- Asignar rol admin al usuario con id 1
