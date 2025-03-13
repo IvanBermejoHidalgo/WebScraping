@@ -16,7 +16,7 @@ class RacesController {
         $statement->bindValue(':grand_prix', $grand_prix);
         $statement->bindValue(':race_date', $race_date);
         $statement->bindValue(':winner', $winner);
-        $statement->bindValue(':team_id', $team_id); // Asegúrate de que esto esté correcto
+        $statement->bindValue(':team_id', $team_id); // Asegúrate de que esto sea el ID del equipo
         $statement->bindValue(':laps', $laps);
         return $statement->execute();
     }
@@ -46,5 +46,21 @@ class RacesController {
         $statement->bindValue(':id', $id);
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function deleteRace($id) {
+        self::init(); // Asegúrate de inicializar la conexión
+        $sql = "DELETE FROM races WHERE id = :id";
+        $statement = self::$connection->prepare($sql);
+        $statement->bindValue(':id', $id);
+    
+        if ($statement->execute()) {
+            return true;
+        } else {
+            // Mostrar errores de la consulta
+            $errorInfo = $statement->errorInfo();
+            echo "Error al ejecutar la consulta: " . $errorInfo[2];
+            return false;
+        }
     }
 }

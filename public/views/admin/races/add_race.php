@@ -88,7 +88,6 @@
                         <option value="{{ team.id }}">{{ team.team_name }}</option>
                     {% endfor %}
                 </select>
-            </div>
             <div class="mb-3">
                 <label for="laps" class="form-label">Vueltas:</label>
                 <input type="number" class="form-control" id="laps" name="laps" required>

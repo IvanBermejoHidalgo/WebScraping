@@ -188,16 +188,16 @@ switch ($path[1]) {
                     $grand_prix = $_POST['grand_prix'];
                     $race_date = $_POST['race_date'];
                     $winner = $_POST['winner'];
-                    $car = $_POST['car'];
+                    $team_id = $_POST['team_id']; // Asegúrate de que esto sea el ID del equipo
                     $laps = $_POST['laps'];
     
                     if ($path[3] === 'add') {
-                        RacesController::addRace($grand_prix, $race_date, $winner, $car, $laps);
+                        RacesController::addRace($grand_prix, $race_date, $winner, $team_id, $laps);
                         header("Location: /admin/races");
                         exit();
                     } elseif ($path[3] === 'edit' && isset($path[4])) {
                         $id = $path[4];
-                        RacesController::editRace($id, $grand_prix, $race_date, $winner, $car, $laps);
+                        RacesController::editRace($id, $grand_prix, $race_date, $winner, $team_id, $laps);
                         header("Location: /admin/races");
                         exit();
                     }
